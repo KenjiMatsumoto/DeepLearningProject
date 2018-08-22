@@ -35,6 +35,10 @@ def softmax_with_loss(d, x):
 def least_square(d, y):
     return np.sum(np.square(d - y)) / 2
 
+# 平均二乗誤差
+def mean_squared_error(d, y):
+    return np.mean(np.square(d - y)) / 2
+
 # クロスエントロピー
 def cross_entropy_error(d, y):
     if y.ndim == 1:
@@ -68,6 +72,14 @@ def d_step_function(x):
 def d_least_square(d, y):
     return y - d
 
+# 平均二乗誤差の導関数
+def d_mean_squared_error(d, y):
+    if type(d) == np.ndarray:
+        batch_size = d.shape[0]
+        dx = (y - d)/batch_size
+    else:
+        dx = y - d
+    return dx
 
 # ソフトマックスとクロスエントロピーの複合導関数
 def d_softmax_with_loss(d, y):
