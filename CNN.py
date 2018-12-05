@@ -1,9 +1,9 @@
 
 # coding: utf-8
 
-# ## 最終課題(irisデータのニューラルネットワーク構築)
+# ## ニューラルネットワークの構築
 
-# In[4]:
+# In[12]:
 
 
 # 必要なライブラリのインポート
@@ -16,30 +16,34 @@ import numpy as np
 from sklearn import datasets
 from sklearn.model_selection import train_test_split
 import matplotlib.pyplot as plt
+import pandas as pd
 
 # データセットのロード
 # iris.data = [(がく片の長さ , がく片の幅 , 花びらの長さ , 花びらの幅)]
-iris = datasets.load_iris()
+house = pd.read_csv('housing.csv', header=0)
 
-x_vals = np.array([x[0:3] for x in iris.data])
-y_vals = np.array([x[3] for x in iris.data])
-
+x_vals = np.array([x[0:13] for x in house.values])
+y_vals = np.array([x[13] for x in house.values])
+# x_vals = house.iloc[:,:-1]
+# y_vals = house.iloc[:,-1]
+print(x_vals.shape)
+print(y_vals.shape)
 # トレーニングデータ（80％）とテストデータ（20％）に分割
-x_train, x_test, y_train, y_test = train_test_split(x_vals, y_vals, test_size=0.2, shuffle=True)
+x_train, x_test, y_train, y_test = train_test_split(x_vals, y_vals, test_size=0.4, shuffle=True)
 
 
-# In[5]:
+# In[13]:
 
 
 class LayerNet:
     
     # コンストラクタ
     def __init__(self):
-        self.input_size = 3
+        self.input_size = 13
         self.hidden_size1 = 20
         self.hidden_size2 = 8
         self.output_size = 1
-        self.batch_size = 30
+        self.batch_size = 2
         self.weight_init = 0.05
         self.learning_rate = 0.001
     
@@ -137,7 +141,7 @@ class LayerNet:
         return grad
 
 
-# In[9]:
+# In[14]:
 
 
 # 学習回数(1000回)
