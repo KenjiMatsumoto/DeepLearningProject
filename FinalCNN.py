@@ -3,7 +3,7 @@
 
 # ## 最終課題(irisデータのニューラルネットワーク構築)
 
-# In[4]:
+# In[6]:
 
 
 # 必要なライブラリのインポート
@@ -23,7 +23,8 @@ iris = datasets.load_iris()
 
 x_vals = np.array([x[0:3] for x in iris.data])
 y_vals = np.array([x[3] for x in iris.data])
-
+print(x_vals.shape)
+print(y_vals.shape)
 # トレーニングデータ（80％）とテストデータ（20％）に分割
 x_train, x_test, y_train, y_test = train_test_split(x_vals, y_vals, test_size=0.2, shuffle=True)
 
