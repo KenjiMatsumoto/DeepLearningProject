@@ -3,7 +3,7 @@
 
 # ## ニューラルネットワークの構築
 
-# In[12]:
+# In[ ]:
 
 
 # 必要なライブラリのインポート
@@ -17,6 +17,8 @@ from sklearn import datasets
 from sklearn.model_selection import train_test_split
 import matplotlib.pyplot as plt
 import pandas as pd
+from sklearn.datasets import fetch_mldata
+mnist = fetch_mldata('MNIST original', data_home=".")
 
 # データセットのロード
 # iris.data = [(がく片の長さ , がく片の幅 , 花びらの長さ , 花びらの幅)]
@@ -32,7 +34,7 @@ print(y_vals.shape)
 x_train, x_test, y_train, y_test = train_test_split(x_vals, y_vals, test_size=0.4, shuffle=True)
 
 
-# In[13]:
+# In[ ]:
 
 
 class LayerNet:
