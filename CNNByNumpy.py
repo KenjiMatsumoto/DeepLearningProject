@@ -3,7 +3,7 @@
 
 # ## ニューラルネットワークの構築
 
-# In[ ]:
+# In[45]:
 
 
 # 必要なライブラリのインポート
@@ -18,36 +18,31 @@ from sklearn.model_selection import train_test_split
 import matplotlib.pyplot as plt
 import pandas as pd
 from sklearn.datasets import fetch_mldata
-mnist = fetch_mldata('MNIST original', data_home=".")
-
 # データセットのロード
-# iris.data = [(がく片の長さ , がく片の幅 , 花びらの長さ , 花びらの幅)]
-house = pd.read_csv('housing.csv', header=0)
-
-x_vals = np.array([x[0:13] for x in house.values])
-y_vals = np.array([x[13] for x in house.values])
-# x_vals = house.iloc[:,:-1]
-# y_vals = house.iloc[:,-1]
-print(x_vals.shape)
-print(y_vals.shape)
-# トレーニングデータ（80％）とテストデータ（20％）に分割
-x_train, x_test, y_train, y_test = train_test_split(x_vals, y_vals, test_size=0.4, shuffle=True)
+mnist = fetch_mldata('MNIST original', data_home=".")
+print(mnist.data.shape)
+print(mnist.target)
+x_vals = mnist.data
+y_vals = mnist.target
+Y_vals = np.eye(10)[y_vals.astype(int)] # 1-of-K表現に変換
+# トレーニングデータ（60％）とテストデータ（40％）に分割
+x_train, x_test, y_train, y_test = train_test_split(x_vals, Y_vals, test_size=0.4, shuffle=True)
 
 
-# In[ ]:
+# In[46]:
 
 
 class LayerNet:
     
     # コンストラクタ
     def __init__(self):
-        self.input_size = 13
-        self.hidden_size1 = 20
-        self.hidden_size2 = 8
+        self.input_size = 784
+        self.hidden_size1 = 300
+        self.hidden_size2 = 150
         self.output_size = 1
-        self.batch_size = 2
-        self.weight_init = 0.05
-        self.learning_rate = 0.001
+        self.batch_size = 128
+        self.weight_init = 0.001
+        self.learning_rate = 0.007
     
     # ネットワークの初期化を実施
     def init_network(self):
@@ -83,13 +78,13 @@ class LayerNet:
         x_batch = x_vec[batch_mask]
         # ミニバッチに対応する訓練正解ラベルデータを取得する
         y_batch = y_vec[batch_mask]
-        y_batch = y_batch[:, np.newaxis]
+#         y_batch = y_batch[:, np.newaxis]
 
         z1, z2, y = self.forward(network, x_batch)
         grad = self.backward(x_batch, y_batch, z1, z2, y)
 
         # optimizerの設定 モメンタムを利用
-        opt = optimizer.Momentum(self.learning_rate)
+        opt = optimizer.SGD(self.learning_rate)
         opt.update(network, grad)
         
         return y_batch, y
@@ -102,15 +97,15 @@ class LayerNet:
         # 勾配
         u1 = np.dot(x, W1) + b1
         # 活性化関数 Relu関数を使用
-        z1 = functions.relu(u1)
+        z1 = functions.sigmoid(u1)
         # 勾配
         u2 = np.dot(z1, W2) + b2
         # 活性化関数 Relu関数を使用
-        z2 = functions.relu(u2)
+        z2 = functions.sigmoid(u2)
         # 勾配
         u3 = np.dot(z2, W3) + b3
-        # 誤差関数(恒等写像)
-        y = u3
+        # 誤差関数(ソフトマックス関数)
+        y = functions.softmax(u3)
 
         return z1, z2, y
 
@@ -122,19 +117,19 @@ class LayerNet:
         b1, b2, b3 = network['b1'], network['b2'], network['b3']
 
         # 出力層でのデルタ 
-        delta3 = functions.d_least_square(d, y)
+        delta3 = functions.d_softmax_with_loss(d, y)
         # b3の勾配
         grad['b3'] = np.sum(delta3, axis=0)
         # W3の勾配
         grad['W3'] = np.dot(z2.T, delta3)
         # 活性化関数の導関数 Relu関数
-        delta2 = np.dot(delta3, W3.T) * functions.d_relu(z2)
+        delta2 = np.dot(delta3, W3.T) * functions.d_sigmoid(z2)
         # b2の勾配
         grad['b2'] = np.sum(delta2, axis=0)
         # W2の勾配
         grad['W2'] = np.dot(z1.T, delta2)
         # 活性化関数の導関数 Relu関数
-        delta1 = np.dot(delta2, W2.T) * functions.d_relu(z1)
+        delta1 = np.dot(delta2, W2.T) * functions.d_sigmoid(z1)
         # b1の勾配
         grad['b1'] = np.sum(delta1, axis=0)
         # W1の勾配
@@ -143,7 +138,7 @@ class LayerNet:
         return grad
 
 
-# In[14]:
+# In[47]:
 
 
 # 学習回数(1000回)

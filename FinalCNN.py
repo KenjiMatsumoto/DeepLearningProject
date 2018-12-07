@@ -29,7 +29,7 @@ print(y_vals.shape)
 x_train, x_test, y_train, y_test = train_test_split(x_vals, y_vals, test_size=0.2, shuffle=True)
 
 
-# In[5]:
+# In[1]:
 
 
 class LayerNet:
@@ -138,7 +138,7 @@ class LayerNet:
         return grad
 
 
-# In[9]:
+# In[2]:
 
 
 # 学習回数(1000回)
