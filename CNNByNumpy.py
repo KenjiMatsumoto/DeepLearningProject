@@ -3,7 +3,7 @@
 
 # ## ニューラルネットワークの構築
 
-# In[1]:
+# In[17]:
 
 
 # 必要なライブラリのインポート
@@ -26,10 +26,10 @@ x_vals = mnist.data
 y_vals = mnist.target
 Y_vals = np.eye(10)[y_vals.astype(int)] # 1-of-K表現に変換
 # トレーニングデータ（60％）とテストデータ（40％）に分割
-x_train, x_test, y_train, y_test = train_test_split(x_vals, Y_vals, test_size=0.4, shuffle=True)
+x_train, x_test, y_train, y_test = train_test_split(x_vals, Y_vals, test_size=0.2, shuffle=True)
 
 
-# In[10]:
+# In[25]:
 
 
 class LayerNet:
@@ -37,12 +37,12 @@ class LayerNet:
     # コンストラクタ
     def __init__(self):
         self.input_size = 784
-        self.hidden_size1 = 300
-        self.hidden_size2 = 150
+        self.hidden_size1 = 30
+        self.hidden_size2 = 15
         self.output_size = 10
-        self.batch_size = 80
+        self.batch_size = 60
         self.weight_init = 0.001
-        self.learning_rate = 0.005
+        self.learning_rate = 0.002
     
     # ネットワークの初期化を実施
     def init_network(self):
@@ -138,11 +138,11 @@ class LayerNet:
         return grad
 
 
-# In[11]:
+# In[26]:
 
 
 # 学習回数(1000回)
-learning_num = 2000
+learning_num = 10000
 
 # 描写頻度
 plot_interval=10
