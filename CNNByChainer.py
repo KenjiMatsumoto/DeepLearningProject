@@ -76,7 +76,7 @@ class MyConvNet(Chain):
         return self.fc6(h)
 
 
-# In[44]:
+# In[46]:
 
 
 def  train_and_validate(
@@ -100,7 +100,7 @@ def  train_and_validate(
     
     # 5. Trainerの機能を拡張する
     trainer.extend(extensions.LogReport())
-    trainer.extend(extensions.Evaluator(validation_iter, model, device=device), name='val')
+    trainer.extend(extensions.Evaluator(validation_iter, model), name='val')
     trainer.extend(extensions.PrintReport(
         ['epoch', 'main/loss', 'main/accuracy', 'val/main/loss', 'val/main/accuracy', 'elapsed_time']))
     trainer.extend(extensions.PlotReport(
@@ -113,7 +113,7 @@ def  train_and_validate(
     trainer.run()
 
 
-# In[45]:
+# In[47]:
 
 
 n_epoch = 20

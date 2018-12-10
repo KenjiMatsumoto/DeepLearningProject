@@ -11862,7 +11862,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[44]:</div>
+<div class="prompt input_prompt">In&nbsp;[46]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span>  <span class="nf">train_and_validate</span><span class="p">(</span>
@@ -11886,7 +11886,7 @@ div#notebook {
     
     <span class="c1"># 5. Trainerの機能を拡張する</span>
     <span class="n">trainer</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">extensions</span><span class="o">.</span><span class="n">LogReport</span><span class="p">())</span>
-    <span class="n">trainer</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">extensions</span><span class="o">.</span><span class="n">Evaluator</span><span class="p">(</span><span class="n">validation_iter</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;val&#39;</span><span class="p">)</span>
+    <span class="n">trainer</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">extensions</span><span class="o">.</span><span class="n">Evaluator</span><span class="p">(</span><span class="n">validation_iter</span><span class="p">,</span> <span class="n">model</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;val&#39;</span><span class="p">)</span>
     <span class="n">trainer</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">extensions</span><span class="o">.</span><span class="n">PrintReport</span><span class="p">(</span>
         <span class="p">[</span><span class="s1">&#39;epoch&#39;</span><span class="p">,</span> <span class="s1">&#39;main/loss&#39;</span><span class="p">,</span> <span class="s1">&#39;main/accuracy&#39;</span><span class="p">,</span> <span class="s1">&#39;val/main/loss&#39;</span><span class="p">,</span> <span class="s1">&#39;val/main/accuracy&#39;</span><span class="p">,</span> <span class="s1">&#39;elapsed_time&#39;</span><span class="p">]))</span>
     <span class="n">trainer</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">extensions</span><span class="o">.</span><span class="n">PlotReport</span><span class="p">(</span>
@@ -11906,7 +11906,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[45]:</div>
+<div class="prompt input_prompt">In&nbsp;[47]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">n_epoch</span> <span class="o">=</span> <span class="mi">20</span>
@@ -11963,12 +11963,12 @@ Will finalize trainer extensions and updater before reraising the exception.
 <pre>
 <span class="ansi-red-fg">---------------------------------------------------------------------------</span>
 <span class="ansi-red-fg">AttributeError</span>                            Traceback (most recent call last)
-<span class="ansi-green-fg">&lt;ipython-input-45-5a7cf6625578&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span><span class="ansi-blue-fg">()</span>
+<span class="ansi-green-fg">&lt;ipython-input-47-5a7cf6625578&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span><span class="ansi-blue-fg">()</span>
 <span class="ansi-green-intense-fg ansi-bold">      6</span> optimizer <span class="ansi-blue-fg">=</span> optimizers<span class="ansi-blue-fg">.</span>Adam<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
 <span class="ansi-green-intense-fg ansi-bold">      7</span> train_and_validate(
 <span class="ansi-green-fg">----&gt; 8</span><span class="ansi-red-fg">     classifier_model, optimizer, train, validation, n_epoch, batchsize)
 </span>
-<span class="ansi-green-fg">&lt;ipython-input-44-b5523718a837&gt;</span> in <span class="ansi-cyan-fg">train_and_validate</span><span class="ansi-blue-fg">(model, optimizer, train, validation, n_epoch, batchsize, device)</span>
+<span class="ansi-green-fg">&lt;ipython-input-46-e91cf47c7cad&gt;</span> in <span class="ansi-cyan-fg">train_and_validate</span><span class="ansi-blue-fg">(model, optimizer, train, validation, n_epoch, batchsize, device)</span>
 <span class="ansi-green-intense-fg ansi-bold">     30</span> 
 <span class="ansi-green-intense-fg ansi-bold">     31</span>     <span class="ansi-red-fg"># 6. 訓練を開始する</span>
 <span class="ansi-green-fg">---&gt; 32</span><span class="ansi-red-fg">     </span>trainer<span class="ansi-blue-fg">.</span>run<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
