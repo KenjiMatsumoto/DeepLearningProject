@@ -1,7 +1,7 @@
 
 # coding: utf-8
 
-# In[30]:
+# In[2]:
 
 
 get_ipython().run_line_magic('matplotlib', 'inline')
@@ -26,7 +26,7 @@ train, test = get_mnist(withlabel=True, ndim=1)
 train, validation = chainer.datasets.split_dataset_random(train, 50000, seed=0)
 
 
-# In[43]:
+# In[20]:
 
 
 class MyConvNet(Chain):
@@ -53,7 +53,7 @@ class MyConvNet(Chain):
             self.fc5 = L.Linear(None, 1000)
             self.fc6 = L.Linear(None, 10)
 
-    def forword(self, x):
+    def __call__(self, x):
         h = F.sigmoid(self.conv1(x.reshape((-1, 1, 28, 28))))
         h = F.max_pooling_2d(h, ksize=2, stride=2)
         h = F.sigmoid(self.conv2(h))
@@ -61,7 +61,7 @@ class MyConvNet(Chain):
         h = F.sigmoid(self.conv3(h))
         h = F.max_pooling_2d(h, ksize=2, stride=2)
         h = F.sigmoid(self.conv4(h))
-        h = F.sigmoid(self.fc4(h))
+        h = F.sigmoid(self.fc5(h))
         return self.fc6(h)
     
     def forward2(self, x):
@@ -76,15 +76,15 @@ class MyConvNet(Chain):
         return self.fc6(h)
 
 
-# In[46]:
+# In[21]:
 
 
 def  train_and_validate(
         model, optimizer, train, validation, n_epoch, batchsize, device=0):
     
     # 1. deviceがgpuであれば、gpuにモデルのデータを転送する
-#     if device >= 0:
-#         model.to_gpu(device)
+    if device >= 0:
+        model.to_cpu()
         
     # 2. Optimizerを設定する
     optimizer.setup(model)
@@ -113,7 +113,7 @@ def  train_and_validate(
     trainer.run()
 
 
-# In[47]:
+# In[ ]:
 
 
 n_epoch = 20
