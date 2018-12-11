@@ -26,7 +26,7 @@ train, test = get_mnist(withlabel=True, ndim=1)
 train, validation = chainer.datasets.split_dataset_random(train, 50000, seed=0)
 
 
-# In[20]:
+# In[1]:
 
 
 class MyConvNet(Chain):
@@ -62,17 +62,6 @@ class MyConvNet(Chain):
         h = F.max_pooling_2d(h, ksize=2, stride=2)
         h = F.sigmoid(self.conv4(h))
         h = F.sigmoid(self.fc5(h))
-        return self.fc6(h)
-    
-    def forward2(self, x):
-        h = F.relu(self.conv1(x.reshape((-1, 1, 28, 28))))
-        h = F.max_pooling_2d(h, ksize=2, stride=2)
-        h = F.relu(self.conv2(h))  # sigmoid -> relu
-        h = F.max_pooling_2d(h, ksize=2, stride=2)
-        h = F.relu(self.conv3(h))  # sigmoid -> relu
-        h = F.max_pooling_2d(h, ksize=2, stride=2)
-        h = F.relu(self.conv4(h))  # sigmoid -> relu
-        h = F.relu(self.fc5(h))  # sigmoid -> relu
         return self.fc6(h)
 
 
