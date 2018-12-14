@@ -1,7 +1,7 @@
 
 # coding: utf-8
 
-# In[2]:
+# In[1]:
 
 
 get_ipython().run_line_magic('matplotlib', 'inline')
@@ -26,7 +26,7 @@ train, test = get_mnist(withlabel=True, ndim=1)
 train, validation = chainer.datasets.split_dataset_random(train, 50000, seed=0)
 
 
-# In[1]:
+# In[2]:
 
 
 class MyConvNet(Chain):
@@ -65,7 +65,7 @@ class MyConvNet(Chain):
         return self.fc6(h)
 
 
-# In[21]:
+# In[3]:
 
 
 def  train_and_validate(
