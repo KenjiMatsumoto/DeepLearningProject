@@ -115,5 +115,68 @@
         "epoch": 13,
         "iteration": 5079,
         "elapsed_time": 2802.841573738988
+    },
+    {
+        "main/loss": 0.02168883418616576,
+        "main/accuracy": 0.9930488782051282,
+        "val/main/loss": 0.04106132523451425,
+        "val/main/accuracy": 0.9879351265822784,
+        "epoch": 14,
+        "iteration": 5469,
+        "elapsed_time": 3105.6048212659953
+    },
+    {
+        "main/loss": 0.019694910577648436,
+        "main/accuracy": 0.9935262148337596,
+        "val/main/loss": 0.04838035154286065,
+        "val/main/accuracy": 0.9871439873417721,
+        "epoch": 15,
+        "iteration": 5860,
+        "elapsed_time": 3737.9359427079908
+    },
+    {
+        "main/loss": 0.018970696785702155,
+        "main/accuracy": 0.9940304487179488,
+        "val/main/loss": 0.04154336513786376,
+        "val/main/accuracy": 0.9899129746835443,
+        "epoch": 16,
+        "iteration": 6250,
+        "elapsed_time": 4043.6465546369727
+    },
+    {
+        "main/loss": 0.016629628170176845,
+        "main/accuracy": 0.9944453324808185,
+        "val/main/loss": 0.03766876114886018,
+        "val/main/accuracy": 0.989814082278481,
+        "epoch": 17,
+        "iteration": 6641,
+        "elapsed_time": 4352.519419434975
+    },
+    {
+        "main/loss": 0.015036768892117778,
+        "main/accuracy": 0.9947450447570333,
+        "val/main/loss": 0.041286382423360135,
+        "val/main/accuracy": 0.9885284810126582,
+        "epoch": 18,
+        "iteration": 7032,
+        "elapsed_time": 4662.297501898982
+    },
+    {
+        "main/loss": 0.011761558695863455,
+        "main/accuracy": 0.9961538461538462,
+        "val/main/loss": 0.04236309468463252,
+        "val/main/accuracy": 0.9896162974683544,
+        "epoch": 19,
+        "iteration": 7422,
+        "elapsed_time": 4971.074370885995
+    },
+    {
+        "main/loss": 0.009035347296339471,
+        "main/accuracy": 0.9970428388746803,
+        "val/main/loss": 0.03996360566042646,
+        "val/main/accuracy": 0.9903085443037974,
+        "epoch": 20,
+        "iteration": 7813,
+        "elapsed_time": 5282.972557862988
     }
 ]

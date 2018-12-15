@@ -11,10 +11,11 @@ from keras.models import Model
 from keras.layers import Conv2D, MaxPooling2D, Dropout, Input, Dense, Flatten
 from keras.optimizers import SGD
 from keras.losses import categorical_crossentropy
+from keras.utils import to_categorical
 import argparse
 
 
-# In[19]:
+# In[21]:
 
 
 # model作成 CNNByChainerと同じ層構成にする
@@ -54,28 +55,34 @@ def predict_accuracy(x_batch, y_batch, model):
     print('acc ', (count/batch_size))
 
 def train():
-    parser = argparse.ArgumentParser(description='train for detection')
-    parser.add_argument('--load_model_path', type=str, default='')
-    parser.add_argument('--batch_size', type=int, default=32)
-    parser.add_argument('--epochs', type=int, default=50)
-    parser.add_argument('--output_dir_path', type=str, default='model/')
+#     parser = argparse.ArgumentParser(description='train for detection')
+#     parser.add_argument('--load_model_path', type=str, default='')
+#     parser.add_argument('--batch_size', type=int, default=32)
+#     parser.add_argument('--epochs', type=int, default=50)
+#     parser.add_argument('--output_dir_path', type=str, default='model/')
 
-    args = parser.parse_args()
+#     args = parser.parse_args()
 
     model = create_CNN_model()
     # mnistデータの取得
     (x_train, y_train), (x_test, y_test) = mnist.load_data()
     x_train1, x_vaild, y_train1, y_valid = train_test_split(x_train, y_train, test_size=0.175)
     
+    # グレースケールの画像で28×28なので28×28×1にreshapeする
+    x_train = x_train.reshape(x_train.shape[0], 28, 28, 1)
+    # one-hot vector形式に変換する
+    y_train = to_categorical(y_train, 10)
+    
     model.compile(loss=categorical_crossentropy,
                   optimizer=SGD(lr=0.01, momentum=0.9, nesterov=True))
+    print(y_train.shape)
     # 学習
-    model.fit(x_train, y_train, epochs=args.epochs, batch_size=args.batch_size)
+    model.fit(x_train, y_train, epochs=20, batch_size=128, verbose=1)
     # 精度算出
     predict_accuracy(x_test, y_test, model)
 
 
-# In[20]:
+# In[ ]:
 
 
 train()
