@@ -1,7 +1,7 @@
 
 # coding: utf-8
 
-# In[18]:
+# In[ ]:
 
 
 # import 
@@ -13,9 +13,10 @@ from keras.optimizers import SGD
 from keras.losses import categorical_crossentropy
 from keras.utils import to_categorical
 import argparse
+import numpy as np
 
 
-# In[21]:
+# In[ ]:
 
 
 # model作成 CNNByChainerと同じ層構成にする
@@ -70,8 +71,11 @@ def train():
     
     # グレースケールの画像で28×28なので28×28×1にreshapeする
     x_train = x_train.reshape(x_train.shape[0], 28, 28, 1)
+    x_test = x_test.reshape(x_test.shape[0], 28, 28, 1)
+    
     # one-hot vector形式に変換する
     y_train = to_categorical(y_train, 10)
+    y_test = to_categorical(y_test, 10)
     
     model.compile(loss=categorical_crossentropy,
                   optimizer=SGD(lr=0.01, momentum=0.9, nesterov=True))
@@ -82,7 +86,7 @@ def train():
     predict_accuracy(x_test, y_test, model)
 
 
-# In[ ]:
+# In[8]:
 
 
 train()
