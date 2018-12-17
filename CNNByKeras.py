@@ -1,7 +1,7 @@
 
 # coding: utf-8
 
-# In[ ]:
+# In[1]:
 
 
 # import 
@@ -16,7 +16,7 @@ import argparse
 import numpy as np
 
 
-# In[ ]:
+# In[8]:
 
 
 # model作成 CNNByChainerと同じ層構成にする
@@ -56,37 +56,41 @@ def predict_accuracy(x_batch, y_batch, model):
     print('acc ', (count/batch_size))
 
 def train():
-#     parser = argparse.ArgumentParser(description='train for detection')
-#     parser.add_argument('--load_model_path', type=str, default='')
-#     parser.add_argument('--batch_size', type=int, default=32)
-#     parser.add_argument('--epochs', type=int, default=50)
-#     parser.add_argument('--output_dir_path', type=str, default='model/')
-
-#     args = parser.parse_args()
 
     model = create_CNN_model()
     # mnistデータの取得
     (x_train, y_train), (x_test, y_test) = mnist.load_data()
-    x_train1, x_vaild, y_train1, y_valid = train_test_split(x_train, y_train, test_size=0.175)
-    
+    x_train1, x_valid, y_train1, y_valid = train_test_split(x_train, y_train, test_size=0.175)
     # グレースケールの画像で28×28なので28×28×1にreshapeする
     x_train = x_train.reshape(x_train.shape[0], 28, 28, 1)
+    x_valid = x_valid.reshape(x_valid.shape[0], 28, 28, 1)
     x_test = x_test.reshape(x_test.shape[0], 28, 28, 1)
     
+    x_train = x_train.astype('float32')
+    x_valid = x_valid.astype('float32')
+    x_test = x_test.astype('float32')
+    x_train /= 255
+    x_valid /= 255
+    x_test /= 255
+
     # one-hot vector形式に変換する
     y_train = to_categorical(y_train, 10)
+    y_valid = to_categorical(y_valid, 10)
     y_test = to_categorical(y_test, 10)
     
     model.compile(loss=categorical_crossentropy,
                   optimizer=SGD(lr=0.01, momentum=0.9, nesterov=True))
     print(y_train.shape)
     # 学習
-    model.fit(x_train, y_train, epochs=20, batch_size=128, verbose=1)
+    model.fit(x_train, y_train, epochs=20, batch_size=128, verbose=1, validation_data=(x_valid, y_valid))
     # 精度算出
-    predict_accuracy(x_test, y_test, model)
+    score = model.evaluate(x_test, y_test, verbose=0)
+    print('Test loss:', score[0])
+    print('Test accuracy:', score[1])
+#     predict_accuracy(x_test, y_test, model)
 
 
-# In[8]:
+# In[9]:
 
 
 train()
