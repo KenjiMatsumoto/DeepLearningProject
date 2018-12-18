@@ -1,7 +1,7 @@
 
 # coding: utf-8
 
-# In[13]:
+# In[4]:
 
 
 # import 
@@ -16,7 +16,7 @@ import argparse
 import numpy as np
 
 
-# In[14]:
+# In[7]:
 
 
 # model作成 CNNByChainerと同じ層構成にする
@@ -79,18 +79,16 @@ def train():
     y_test = to_categorical(y_test, 10)
     
     model.compile(loss=categorical_crossentropy,
-                  optimizer=Adam())
-    print(y_train.shape)
+                  optimizer=Adam(), metrics=['accuracy'])
     # 学習
-    model.fit(x_train, y_train, epochs=20, batch_size=128, verbose=1, validation_data=(x_valid, y_valid))
+    model.fit(x_train, y_train, epochs=1, batch_size=128, verbose=1, validation_data=(x_valid, y_valid))
     # 精度算出
     score = model.evaluate(x_test, y_test, verbose=0)
     print('Test loss:', score[0])
     print('Test accuracy:', score[1])
-#     predict_accuracy(x_test, y_test, model)
 
 
-# In[ ]:
+# In[8]:
 
 
 train()
