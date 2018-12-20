@@ -9,7 +9,7 @@ from keras.datasets import mnist
 from sklearn.model_selection import train_test_split
 from keras.models import Model
 from keras.layers import Conv2D, MaxPooling2D, Dropout, Input, Dense, Flatten
-from keras.optimizers import SGD
+from keras.optimizers import Adam
 from keras.losses import categorical_crossentropy
 from keras.utils import to_categorical
 import argparse
@@ -79,7 +79,7 @@ def train():
     y_test = to_categorical(y_test, 10)
     
     model.compile(loss=categorical_crossentropy,
-                  optimizer=SGD(lr=0.01, momentum=0.9, nesterov=True),  metrics=['accuracy'])
+                  optimizer=Adam(),  metrics=['accuracy'])
     # 学習
     model.fit(x_train, y_train, epochs=20, batch_size=128, verbose=1, validation_data=(x_valid, y_valid))
     # 精度算出
