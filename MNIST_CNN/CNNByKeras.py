@@ -16,7 +16,7 @@ import argparse
 import numpy as np
 
 
-# In[3]:
+# In[ ]:
 
 
 # model作成 CNNByChainerと同じ層構成にする
@@ -27,11 +27,11 @@ def create_CNN_model(input_shape=(28, 28, 1), class_num=10):
     # 畳み込み層の実装
     # 1層目
     cnn = Conv2D(32, kernel_size=kernel_size, padding='same', strides=(1, 1), activation='sigmoid', input_shape=(28, 28, 1))(input)
-    cnn = MaxPooling2D(kernel_size=(2,2), pool_size=max_pool_size, strides=(2, 2))(cnn)
+    cnn = MaxPooling2D(pool_size=max_pool_size, strides=(2, 2))(cnn)
     cnn = Conv2D(64, kernel_size, padding='same', strides=(1, 1), activation='sigmoid')(cnn)
-    cnn = MaxPooling2D(kernel_size=(2,2), pool_size=max_pool_size, strides=(2, 2))(cnn)
+    cnn = MaxPooling2D(pool_size=max_pool_size, strides=(2, 2))(cnn)
     cnn = Conv2D(128, kernel_size, padding='same', strides=(1, 1), activation='sigmoid')(cnn)
-    cnn = MaxPooling2D(kernel_size=(2,2), pool_size=max_pool_size, strides=(2, 2))(cnn)
+    cnn = MaxPooling2D(pool_size=max_pool_size, strides=(2, 2))(cnn)
     cnn = Conv2D(128, kernel_size, padding='same', strides=(1, 1), activation='sigmoid')(cnn)
     # 入力を平滑化する層（いわゆるデータをフラット化する層、例えば4次元配列を1次元配列に変換するなど）
     fc = Flatten()(cnn)
@@ -83,13 +83,13 @@ def train():
     # 学習
     model.fit(x_train, y_train, epochs=20, batch_size=128, verbose=1, validation_data=(x_valid, y_valid))
     # 精度算出
-#     score = model.evaluate(x_test, y_test, verbose=0)
-#     print('Test loss:', score[0])
-#     print('Test accuracy:', score[1])
+    score = model.evaluate(x_test, y_test, verbose=0)
+    print('Test loss:', score[0])
+    print('Test accuracy:', score[1])
     predict_accuracy(x_test, y_test, model)
 
 
-# In[ ]:
+# In[7]:
 
 
 train()
