@@ -11773,7 +11773,7 @@ div#notebook {
 
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># import </span>
@@ -11792,10 +11792,28 @@ div#notebook {
 </div>
 </div>
 
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>Using TensorFlow backend.
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># model作成 CNNByChainerと同じ層構成にする</span>
@@ -11881,7 +11899,7 @@ div#notebook {
 
 
 <div class="output_subarea output_stream output_stderr output_text">
-<pre>/Users/kenjimatsumoto/.pyenv/versions/anaconda3-5.2.0/lib/python3.6/site-packages/ipykernel_launcher.py:20: UserWarning: Update your `Model` call to the Keras 2 API: `Model(inputs=Tensor(&#34;in..., outputs=Tensor(&#34;de...)`
+<pre>/usr/local/lib/python3.6/dist-packages/ipykernel_launcher.py:19: UserWarning: Update your `Model` call to the Keras 2 API: `Model(inputs=Tensor(&#34;in..., outputs=Tensor(&#34;de...)`
 </pre>
 </div>
 </div>
@@ -11892,67 +11910,52 @@ div#notebook {
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Train on 60000 samples, validate on 10500 samples
+<pre>Downloading data from https://www.cs.toronto.edu/~kriz/cifar-10-python.tar.gz
+170500096/170498071 [==============================] - 40s 0us/step
+Train on 50000 samples, validate on 8750 samples
 Epoch 1/20
-12928/60000 [=====&gt;........................] - ETA: 35s - loss: 2.3475 - acc: 0.0984</pre>
-</div>
-</div>
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-<div class="output_subarea output_text output_error">
-<pre>
-<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg">KeyboardInterrupt</span>                         Traceback (most recent call last)
-<span class="ansi-green-fg">&lt;ipython-input-3-2da0ffaf5447&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span><span class="ansi-blue-fg">()</span>
-<span class="ansi-green-fg">----&gt; 1</span><span class="ansi-red-fg"> </span>train<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
-
-<span class="ansi-green-fg">&lt;ipython-input-2-32e77306edc1&gt;</span> in <span class="ansi-cyan-fg">train</span><span class="ansi-blue-fg">()</span>
-<span class="ansi-green-intense-fg ansi-bold">     61</span>                   optimizer=Adam(),  metrics=[&#39;accuracy&#39;])
-<span class="ansi-green-intense-fg ansi-bold">     62</span>     <span class="ansi-red-fg"># 学習</span>
-<span class="ansi-green-fg">---&gt; 63</span><span class="ansi-red-fg">     </span>model<span class="ansi-blue-fg">.</span>fit<span class="ansi-blue-fg">(</span>x_train<span class="ansi-blue-fg">,</span> y_train<span class="ansi-blue-fg">,</span> epochs<span class="ansi-blue-fg">=</span><span class="ansi-cyan-fg">20</span><span class="ansi-blue-fg">,</span> batch_size<span class="ansi-blue-fg">=</span><span class="ansi-cyan-fg">128</span><span class="ansi-blue-fg">,</span> verbose<span class="ansi-blue-fg">=</span><span class="ansi-cyan-fg">1</span><span class="ansi-blue-fg">,</span> validation_data<span class="ansi-blue-fg">=</span><span class="ansi-blue-fg">(</span>x_valid<span class="ansi-blue-fg">,</span> y_valid<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">     64</span>     <span class="ansi-red-fg"># 精度算出</span>
-<span class="ansi-green-intense-fg ansi-bold">     65</span>     score <span class="ansi-blue-fg">=</span> model<span class="ansi-blue-fg">.</span>evaluate<span class="ansi-blue-fg">(</span>x_test<span class="ansi-blue-fg">,</span> y_test<span class="ansi-blue-fg">,</span> verbose<span class="ansi-blue-fg">=</span><span class="ansi-cyan-fg">0</span><span class="ansi-blue-fg">)</span>
-
-<span class="ansi-green-fg">~/.pyenv/versions/anaconda3-5.2.0/lib/python3.6/site-packages/keras/engine/training.py</span> in <span class="ansi-cyan-fg">fit</span><span class="ansi-blue-fg">(self, x, y, batch_size, epochs, verbose, callbacks, validation_split, validation_data, shuffle, class_weight, sample_weight, initial_epoch, steps_per_epoch, validation_steps, **kwargs)</span>
-<span class="ansi-green-intense-fg ansi-bold">   1037</span>                                         initial_epoch<span class="ansi-blue-fg">=</span>initial_epoch<span class="ansi-blue-fg">,</span>
-<span class="ansi-green-intense-fg ansi-bold">   1038</span>                                         steps_per_epoch<span class="ansi-blue-fg">=</span>steps_per_epoch<span class="ansi-blue-fg">,</span>
-<span class="ansi-green-fg">-&gt; 1039</span><span class="ansi-red-fg">                                         validation_steps=validation_steps)
-</span><span class="ansi-green-intense-fg ansi-bold">   1040</span> 
-<span class="ansi-green-intense-fg ansi-bold">   1041</span>     def evaluate(self, x=None, y=None,
-
-<span class="ansi-green-fg">~/.pyenv/versions/anaconda3-5.2.0/lib/python3.6/site-packages/keras/engine/training_arrays.py</span> in <span class="ansi-cyan-fg">fit_loop</span><span class="ansi-blue-fg">(model, f, ins, out_labels, batch_size, epochs, verbose, callbacks, val_f, val_ins, shuffle, callback_metrics, initial_epoch, steps_per_epoch, validation_steps)</span>
-<span class="ansi-green-intense-fg ansi-bold">    197</span>                     ins_batch<span class="ansi-blue-fg">[</span>i<span class="ansi-blue-fg">]</span> <span class="ansi-blue-fg">=</span> ins_batch<span class="ansi-blue-fg">[</span>i<span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">.</span>toarray<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    198</span> 
-<span class="ansi-green-fg">--&gt; 199</span><span class="ansi-red-fg">                 </span>outs <span class="ansi-blue-fg">=</span> f<span class="ansi-blue-fg">(</span>ins_batch<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    200</span>                 outs <span class="ansi-blue-fg">=</span> to_list<span class="ansi-blue-fg">(</span>outs<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    201</span>                 <span class="ansi-green-fg">for</span> l<span class="ansi-blue-fg">,</span> o <span class="ansi-green-fg">in</span> zip<span class="ansi-blue-fg">(</span>out_labels<span class="ansi-blue-fg">,</span> outs<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
-
-<span class="ansi-green-fg">~/.pyenv/versions/anaconda3-5.2.0/lib/python3.6/site-packages/keras/backend/tensorflow_backend.py</span> in <span class="ansi-cyan-fg">__call__</span><span class="ansi-blue-fg">(self, inputs)</span>
-<span class="ansi-green-intense-fg ansi-bold">   2713</span>                 <span class="ansi-green-fg">return</span> self<span class="ansi-blue-fg">.</span>_legacy_call<span class="ansi-blue-fg">(</span>inputs<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">   2714</span> 
-<span class="ansi-green-fg">-&gt; 2715</span><span class="ansi-red-fg">             </span><span class="ansi-green-fg">return</span> self<span class="ansi-blue-fg">.</span>_call<span class="ansi-blue-fg">(</span>inputs<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">   2716</span>         <span class="ansi-green-fg">else</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-intense-fg ansi-bold">   2717</span>             <span class="ansi-green-fg">if</span> py_any<span class="ansi-blue-fg">(</span>is_tensor<span class="ansi-blue-fg">(</span>x<span class="ansi-blue-fg">)</span> <span class="ansi-green-fg">for</span> x <span class="ansi-green-fg">in</span> inputs<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
-
-<span class="ansi-green-fg">~/.pyenv/versions/anaconda3-5.2.0/lib/python3.6/site-packages/keras/backend/tensorflow_backend.py</span> in <span class="ansi-cyan-fg">_call</span><span class="ansi-blue-fg">(self, inputs)</span>
-<span class="ansi-green-intense-fg ansi-bold">   2673</span>             fetched <span class="ansi-blue-fg">=</span> self<span class="ansi-blue-fg">.</span>_callable_fn<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">*</span>array_vals<span class="ansi-blue-fg">,</span> run_metadata<span class="ansi-blue-fg">=</span>self<span class="ansi-blue-fg">.</span>run_metadata<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">   2674</span>         <span class="ansi-green-fg">else</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-fg">-&gt; 2675</span><span class="ansi-red-fg">             </span>fetched <span class="ansi-blue-fg">=</span> self<span class="ansi-blue-fg">.</span>_callable_fn<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">*</span>array_vals<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">   2676</span>         <span class="ansi-green-fg">return</span> fetched<span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">:</span>len<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">.</span>outputs<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">]</span>
-<span class="ansi-green-intense-fg ansi-bold">   2677</span> 
-
-<span class="ansi-green-fg">~/.pyenv/versions/anaconda3-5.2.0/lib/python3.6/site-packages/tensorflow/python/client/session.py</span> in <span class="ansi-cyan-fg">__call__</span><span class="ansi-blue-fg">(self, *args, **kwargs)</span>
-<span class="ansi-green-intense-fg ansi-bold">   1397</span>           ret = tf_session.TF_SessionRunCallable(
-<span class="ansi-green-intense-fg ansi-bold">   1398</span>               self<span class="ansi-blue-fg">.</span>_session<span class="ansi-blue-fg">.</span>_session<span class="ansi-blue-fg">,</span> self<span class="ansi-blue-fg">.</span>_handle<span class="ansi-blue-fg">,</span> args<span class="ansi-blue-fg">,</span> status<span class="ansi-blue-fg">,</span>
-<span class="ansi-green-fg">-&gt; 1399</span><span class="ansi-red-fg">               run_metadata_ptr)
-</span><span class="ansi-green-intense-fg ansi-bold">   1400</span>         <span class="ansi-green-fg">if</span> run_metadata<span class="ansi-blue-fg">:</span>
-<span class="ansi-green-intense-fg ansi-bold">   1401</span>           proto_data <span class="ansi-blue-fg">=</span> tf_session<span class="ansi-blue-fg">.</span>TF_GetBuffer<span class="ansi-blue-fg">(</span>run_metadata_ptr<span class="ansi-blue-fg">)</span>
-
-<span class="ansi-red-fg">KeyboardInterrupt</span>: </pre>
+50000/50000 [==============================] - 14s 289us/step - loss: 2.3408 - acc: 0.0975 - val_loss: 2.3147 - val_acc: 0.1029
+Epoch 2/20
+50000/50000 [==============================] - 10s 194us/step - loss: 2.2309 - acc: 0.1474 - val_loss: 2.0678 - val_acc: 0.2419
+Epoch 3/20
+50000/50000 [==============================] - 10s 195us/step - loss: 1.9541 - acc: 0.2811 - val_loss: 1.8886 - val_acc: 0.3104
+Epoch 4/20
+50000/50000 [==============================] - 10s 194us/step - loss: 1.7556 - acc: 0.3611 - val_loss: 1.6408 - val_acc: 0.4024
+Epoch 5/20
+50000/50000 [==============================] - 10s 195us/step - loss: 1.6027 - acc: 0.4229 - val_loss: 1.5218 - val_acc: 0.4562
+Epoch 6/20
+50000/50000 [==============================] - 10s 194us/step - loss: 1.4950 - acc: 0.4635 - val_loss: 1.4357 - val_acc: 0.4818
+Epoch 7/20
+50000/50000 [==============================] - 10s 194us/step - loss: 1.4156 - acc: 0.4918 - val_loss: 1.3523 - val_acc: 0.5125
+Epoch 8/20
+50000/50000 [==============================] - 10s 194us/step - loss: 1.3575 - acc: 0.5132 - val_loss: 1.3085 - val_acc: 0.5311
+Epoch 9/20
+50000/50000 [==============================] - 10s 194us/step - loss: 1.3094 - acc: 0.5311 - val_loss: 1.2718 - val_acc: 0.5451
+Epoch 10/20
+50000/50000 [==============================] - 10s 194us/step - loss: 1.2629 - acc: 0.5486 - val_loss: 1.2342 - val_acc: 0.5607
+Epoch 11/20
+50000/50000 [==============================] - 10s 194us/step - loss: 1.2174 - acc: 0.5665 - val_loss: 1.1697 - val_acc: 0.5841
+Epoch 12/20
+50000/50000 [==============================] - 10s 193us/step - loss: 1.1735 - acc: 0.5825 - val_loss: 1.1372 - val_acc: 0.5983
+Epoch 13/20
+50000/50000 [==============================] - 10s 194us/step - loss: 1.1340 - acc: 0.5965 - val_loss: 1.0816 - val_acc: 0.6117
+Epoch 14/20
+50000/50000 [==============================] - 10s 193us/step - loss: 1.0855 - acc: 0.6146 - val_loss: 1.0371 - val_acc: 0.6301
+Epoch 15/20
+50000/50000 [==============================] - 10s 194us/step - loss: 1.0424 - acc: 0.6306 - val_loss: 0.9877 - val_acc: 0.6515
+Epoch 16/20
+50000/50000 [==============================] - 10s 194us/step - loss: 0.9888 - acc: 0.6492 - val_loss: 0.9130 - val_acc: 0.6793
+Epoch 17/20
+50000/50000 [==============================] - 10s 194us/step - loss: 0.9342 - acc: 0.6710 - val_loss: 0.8707 - val_acc: 0.6963
+Epoch 18/20
+50000/50000 [==============================] - 10s 193us/step - loss: 0.8811 - acc: 0.6911 - val_loss: 0.8041 - val_acc: 0.7191
+Epoch 19/20
+50000/50000 [==============================] - 10s 193us/step - loss: 0.8216 - acc: 0.7132 - val_loss: 0.7319 - val_acc: 0.7499
+Epoch 20/20
+50000/50000 [==============================] - 10s 195us/step - loss: 0.7610 - acc: 0.7352 - val_loss: 0.7023 - val_acc: 0.7569
+Test loss: 1.1993175721168519
+Test accuracy: 0.5971
+</pre>
 </div>
 </div>
 

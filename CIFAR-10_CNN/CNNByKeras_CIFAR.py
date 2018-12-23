@@ -1,7 +1,7 @@
 
 # coding: utf-8
 
-# In[4]:
+# In[1]:
 
 
 # import 
@@ -16,7 +16,7 @@ import argparse
 import numpy as np
 
 
-# In[7]:
+# In[ ]:
 
 
 # model作成 CNNByChainerと同じ層構成にする
