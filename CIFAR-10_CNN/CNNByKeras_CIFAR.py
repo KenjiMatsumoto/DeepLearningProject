@@ -16,7 +16,14 @@ import argparse
 import numpy as np
 
 
-# In[ ]:
+# In[3]:
+
+
+(x_train, y_train), (x_test, y_test) = cifar10.load_data()
+x_train1, x_valid, y_train1, y_valid = train_test_split(x_train, y_train, test_size=0.2)
+
+
+# In[5]:
 
 
 # model作成 CNNByChainerと同じ層構成にする
@@ -26,17 +33,19 @@ def create_CNN_model(input_shape=(32, 32, 3), class_num=10):
     max_pool_size = (2, 2)
     # 畳み込み層の実装
     # 1層目
-    cnn = Conv2D(32, kernel_size=kernel_size, padding='same', strides=(1, 1), activation='sigmoid', input_shape=(32, 32, 3))(input)
+    cnn = Conv2D(32, kernel_size=kernel_size, padding='same', strides=(1, 1), activation='relu', input_shape=(32, 32, 3))(input)
     cnn = MaxPooling2D(pool_size=max_pool_size, strides=(2, 2))(cnn)
-    cnn = Conv2D(64, kernel_size, padding='same', strides=(1, 1), activation='sigmoid')(cnn)
+    cnn = Conv2D(64, kernel_size, padding='same', strides=(1, 1), activation='relu')(cnn)
     cnn = MaxPooling2D(pool_size=max_pool_size, strides=(2, 2))(cnn)
-    cnn = Conv2D(128, kernel_size, padding='same', strides=(1, 1), activation='sigmoid')(cnn)
+    cnn = Conv2D(128, kernel_size, padding='same', strides=(1, 1), activation='relu')(cnn)
     cnn = MaxPooling2D(pool_size=max_pool_size, strides=(2, 2))(cnn)
-    cnn = Conv2D(128, kernel_size, padding='same', strides=(1, 1), activation='sigmoid')(cnn)
+    cnn = Conv2D(256, kernel_size, padding='same', strides=(1, 1), activation='relu')(cnn)
+    cnn = MaxPooling2D(pool_size=max_pool_size, strides=(2, 2))(cnn)
+    cnn = Conv2D(256, kernel_size, padding='same', strides=(1, 1), activation='relu')(cnn)
     # 入力を平滑化する層（いわゆるデータをフラット化する層、例えば4次元配列を1次元配列に変換するなど）
     fc = Flatten()(cnn)
     # denseは全結合層
-    fc = Dense(1000, activation='sigmoid')(fc)
+    fc = Dense(1000, activation='relu')(fc)
     softmax = Dense(10, activation='softmax')(fc)
     model = Model(input=input, output=softmax)
     
@@ -45,10 +54,10 @@ def create_CNN_model(input_shape=(32, 32, 3), class_num=10):
 def train():
 
     model = create_CNN_model()
-    # mnistデータの取得
+    # cifar10のデータ取得
     (x_train, y_train), (x_test, y_test) = cifar10.load_data()
-    x_train1, x_valid, y_train1, y_valid = train_test_split(x_train, y_train, test_size=0.175)
-    # グレースケールの画像で28×28なので28×28×1にreshapeする
+    x_train1, x_valid, y_train1, y_valid = train_test_split(x_train, y_train, test_size=0.2)
+    # RGB画像で32×32なので32×32×3にreshapeする
     x_train = x_train.reshape(x_train.shape[0], 32, 32, 3)
     x_valid = x_valid.reshape(x_valid.shape[0], 32, 32, 3)
     x_test = x_test.reshape(x_test.shape[0], 32, 32, 3)
