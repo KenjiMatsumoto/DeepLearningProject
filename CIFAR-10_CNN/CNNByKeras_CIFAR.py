@@ -16,14 +16,7 @@ import argparse
 import numpy as np
 
 
-# In[3]:
-
-
-(x_train, y_train), (x_test, y_test) = cifar10.load_data()
-x_train1, x_valid, y_train1, y_valid = train_test_split(x_train, y_train, test_size=0.2)
-
-
-# In[5]:
+# In[6]:
 
 
 # model作成 CNNByChainerと同じ層構成にする
