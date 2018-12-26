@@ -16,7 +16,7 @@ import argparse
 import numpy as np
 
 
-# In[6]:
+# In[ ]:
 
 
 # model作成 CNNByChainerと同じ層構成にする
@@ -70,7 +70,7 @@ def train():
     model.compile(loss=categorical_crossentropy,
                   optimizer=Adam(),  metrics=['accuracy'])
     # 学習
-    model.fit(x_train, y_train, epochs=20, batch_size=128, verbose=1, validation_data=(x_valid, y_valid))
+    model.fit(x_train, y_train, epochs=40, batch_size=128, verbose=1, validation_data=(x_valid, y_valid))
     # 精度算出
     score = model.evaluate(x_test, y_test, verbose=0)
     print('Test loss:', score[0])

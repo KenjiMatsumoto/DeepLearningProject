@@ -11803,10 +11803,6 @@ div#notebook {
 
 <div class="output_subarea output_stream output_stderr output_text">
 <pre>Using TensorFlow backend.
-/Users/kokubun/.pyenv/versions/3.6.2/lib/python3.6/importlib/_bootstrap.py:205: RuntimeWarning: numpy.dtype size changed, may indicate binary incompatibility. Expected 96, got 88
-  return f(*args, **kwds)
-/Users/kokubun/.pyenv/versions/3.6.2/lib/python3.6/importlib/_bootstrap.py:205: RuntimeWarning: numpy.dtype size changed, may indicate binary incompatibility. Expected 96, got 88
-  return f(*args, **kwds)
 </pre>
 </div>
 </div>
@@ -11817,7 +11813,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># model作成 CNNByChainerと同じ層構成にする</span>
@@ -11871,7 +11867,7 @@ div#notebook {
     <span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">loss</span><span class="o">=</span><span class="n">categorical_crossentropy</span><span class="p">,</span>
                   <span class="n">optimizer</span><span class="o">=</span><span class="n">Adam</span><span class="p">(),</span>  <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;accuracy&#39;</span><span class="p">])</span>
     <span class="c1"># 学習</span>
-    <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">128</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">validation_data</span><span class="o">=</span><span class="p">(</span><span class="n">x_valid</span><span class="p">,</span> <span class="n">y_valid</span><span class="p">))</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">128</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">validation_data</span><span class="o">=</span><span class="p">(</span><span class="n">x_valid</span><span class="p">,</span> <span class="n">y_valid</span><span class="p">))</span>
     <span class="c1"># 精度算出</span>
     <span class="n">score</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">x_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
     <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Test loss:&#39;</span><span class="p">,</span> <span class="n">score</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
@@ -11905,7 +11901,7 @@ div#notebook {
 
 
 <div class="output_subarea output_stream output_stderr output_text">
-<pre>/usr/local/lib/python3.6/dist-packages/ipykernel_launcher.py:19: UserWarning: Update your `Model` call to the Keras 2 API: `Model(inputs=Tensor(&#34;in..., outputs=Tensor(&#34;de...)`
+<pre>/usr/local/lib/python3.6/dist-packages/ipykernel_launcher.py:21: UserWarning: Update your `Model` call to the Keras 2 API: `Model(inputs=Tensor(&#34;in..., outputs=Tensor(&#34;de...)`
 </pre>
 </div>
 </div>
@@ -11917,50 +11913,50 @@ div#notebook {
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Downloading data from https://www.cs.toronto.edu/~kriz/cifar-10-python.tar.gz
-170500096/170498071 [==============================] - 40s 0us/step
-Train on 50000 samples, validate on 8750 samples
+170500096/170498071 [==============================] - 16s 0us/step
+Train on 50000 samples, validate on 10000 samples
 Epoch 1/20
-50000/50000 [==============================] - 14s 289us/step - loss: 2.3408 - acc: 0.0975 - val_loss: 2.3147 - val_acc: 0.1029
+50000/50000 [==============================] - 16s 321us/step - loss: 1.5183 - acc: 0.4318 - val_loss: 1.1900 - val_acc: 0.5656
 Epoch 2/20
-50000/50000 [==============================] - 10s 194us/step - loss: 2.2309 - acc: 0.1474 - val_loss: 2.0678 - val_acc: 0.2419
+50000/50000 [==============================] - 11s 222us/step - loss: 1.0487 - acc: 0.6239 - val_loss: 0.8602 - val_acc: 0.6935
 Epoch 3/20
-50000/50000 [==============================] - 10s 195us/step - loss: 1.9541 - acc: 0.2811 - val_loss: 1.8886 - val_acc: 0.3104
+50000/50000 [==============================] - 11s 222us/step - loss: 0.8335 - acc: 0.7046 - val_loss: 0.7027 - val_acc: 0.7549
 Epoch 4/20
-50000/50000 [==============================] - 10s 194us/step - loss: 1.7556 - acc: 0.3611 - val_loss: 1.6408 - val_acc: 0.4024
+50000/50000 [==============================] - 11s 223us/step - loss: 0.6961 - acc: 0.7527 - val_loss: 0.5858 - val_acc: 0.7939
 Epoch 5/20
-50000/50000 [==============================] - 10s 195us/step - loss: 1.6027 - acc: 0.4229 - val_loss: 1.5218 - val_acc: 0.4562
+50000/50000 [==============================] - 11s 223us/step - loss: 0.5801 - acc: 0.7938 - val_loss: 0.4475 - val_acc: 0.8431
 Epoch 6/20
-50000/50000 [==============================] - 10s 194us/step - loss: 1.4950 - acc: 0.4635 - val_loss: 1.4357 - val_acc: 0.4818
+50000/50000 [==============================] - 11s 222us/step - loss: 0.4642 - acc: 0.8352 - val_loss: 0.3358 - val_acc: 0.8854
 Epoch 7/20
-50000/50000 [==============================] - 10s 194us/step - loss: 1.4156 - acc: 0.4918 - val_loss: 1.3523 - val_acc: 0.5125
+50000/50000 [==============================] - 11s 226us/step - loss: 0.3841 - acc: 0.8633 - val_loss: 0.2746 - val_acc: 0.9077
 Epoch 8/20
-50000/50000 [==============================] - 10s 194us/step - loss: 1.3575 - acc: 0.5132 - val_loss: 1.3085 - val_acc: 0.5311
+50000/50000 [==============================] - 11s 221us/step - loss: 0.3077 - acc: 0.8911 - val_loss: 0.1932 - val_acc: 0.9380
 Epoch 9/20
-50000/50000 [==============================] - 10s 194us/step - loss: 1.3094 - acc: 0.5311 - val_loss: 1.2718 - val_acc: 0.5451
+50000/50000 [==============================] - 11s 220us/step - loss: 0.2457 - acc: 0.9133 - val_loss: 0.1940 - val_acc: 0.9356
 Epoch 10/20
-50000/50000 [==============================] - 10s 194us/step - loss: 1.2629 - acc: 0.5486 - val_loss: 1.2342 - val_acc: 0.5607
+50000/50000 [==============================] - 11s 219us/step - loss: 0.1944 - acc: 0.9309 - val_loss: 0.1526 - val_acc: 0.9465
 Epoch 11/20
-50000/50000 [==============================] - 10s 194us/step - loss: 1.2174 - acc: 0.5665 - val_loss: 1.1697 - val_acc: 0.5841
+50000/50000 [==============================] - 11s 220us/step - loss: 0.1686 - acc: 0.9404 - val_loss: 0.1089 - val_acc: 0.9629
 Epoch 12/20
-50000/50000 [==============================] - 10s 193us/step - loss: 1.1735 - acc: 0.5825 - val_loss: 1.1372 - val_acc: 0.5983
+50000/50000 [==============================] - 11s 222us/step - loss: 0.1389 - acc: 0.9521 - val_loss: 0.1260 - val_acc: 0.9567
 Epoch 13/20
-50000/50000 [==============================] - 10s 194us/step - loss: 1.1340 - acc: 0.5965 - val_loss: 1.0816 - val_acc: 0.6117
+50000/50000 [==============================] - 11s 222us/step - loss: 0.1195 - acc: 0.9579 - val_loss: 0.0627 - val_acc: 0.9780
 Epoch 14/20
-50000/50000 [==============================] - 10s 193us/step - loss: 1.0855 - acc: 0.6146 - val_loss: 1.0371 - val_acc: 0.6301
+50000/50000 [==============================] - 11s 221us/step - loss: 0.1097 - acc: 0.9621 - val_loss: 0.0881 - val_acc: 0.9713
 Epoch 15/20
-50000/50000 [==============================] - 10s 194us/step - loss: 1.0424 - acc: 0.6306 - val_loss: 0.9877 - val_acc: 0.6515
+50000/50000 [==============================] - 11s 221us/step - loss: 0.1008 - acc: 0.9655 - val_loss: 0.0601 - val_acc: 0.9797
 Epoch 16/20
-50000/50000 [==============================] - 10s 194us/step - loss: 0.9888 - acc: 0.6492 - val_loss: 0.9130 - val_acc: 0.6793
+50000/50000 [==============================] - 11s 222us/step - loss: 0.0944 - acc: 0.9670 - val_loss: 0.0709 - val_acc: 0.9770
 Epoch 17/20
-50000/50000 [==============================] - 10s 194us/step - loss: 0.9342 - acc: 0.6710 - val_loss: 0.8707 - val_acc: 0.6963
+50000/50000 [==============================] - 11s 221us/step - loss: 0.0920 - acc: 0.9693 - val_loss: 0.0578 - val_acc: 0.9805
 Epoch 18/20
-50000/50000 [==============================] - 10s 193us/step - loss: 0.8811 - acc: 0.6911 - val_loss: 0.8041 - val_acc: 0.7191
+50000/50000 [==============================] - 11s 221us/step - loss: 0.0850 - acc: 0.9707 - val_loss: 0.0847 - val_acc: 0.9713
 Epoch 19/20
-50000/50000 [==============================] - 10s 193us/step - loss: 0.8216 - acc: 0.7132 - val_loss: 0.7319 - val_acc: 0.7499
+50000/50000 [==============================] - 11s 221us/step - loss: 0.0782 - acc: 0.9741 - val_loss: 0.0460 - val_acc: 0.9854
 Epoch 20/20
-50000/50000 [==============================] - 10s 195us/step - loss: 0.7610 - acc: 0.7352 - val_loss: 0.7023 - val_acc: 0.7569
-Test loss: 1.1993175721168519
-Test accuracy: 0.5971
+50000/50000 [==============================] - 11s 222us/step - loss: 0.0704 - acc: 0.9760 - val_loss: 0.0683 - val_acc: 0.9762
+Test loss: 1.5225904363632201
+Test accuracy: 0.7346
 </pre>
 </div>
 </div>
