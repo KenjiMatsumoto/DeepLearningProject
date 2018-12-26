@@ -1,7 +1,7 @@
 
 # coding: utf-8
 
-# In[1]:
+# In[6]:
 
 
 # import 
@@ -16,7 +16,7 @@ import argparse
 import numpy as np
 
 
-# In[ ]:
+# In[7]:
 
 
 # model作成 CNNByChainerと同じ層構成にする
@@ -39,6 +39,7 @@ def create_CNN_model(input_shape=(32, 32, 3), class_num=10):
     fc = Flatten()(cnn)
     # denseは全結合層
     fc = Dense(1000, activation='relu')(fc)
+    fc = Dropout(1.0)(fc)
     softmax = Dense(10, activation='softmax')(fc)
     model = Model(input=input, output=softmax)
     
@@ -77,7 +78,7 @@ def train():
     print('Test accuracy:', score[1])
 
 
-# In[3]:
+# In[8]:
 
 
 train()
