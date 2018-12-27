@@ -1,7 +1,7 @@
 
 # coding: utf-8
 
-# In[6]:
+# In[1]:
 
 
 # import 
@@ -16,7 +16,7 @@ import argparse
 import numpy as np
 
 
-# In[7]:
+# In[ ]:
 
 
 # model作成 CNNByChainerと同じ層構成にする
@@ -30,16 +30,18 @@ def create_CNN_model(input_shape=(32, 32, 3), class_num=10):
     cnn = MaxPooling2D(pool_size=max_pool_size, strides=(2, 2))(cnn)
     cnn = Conv2D(64, kernel_size, padding='same', strides=(1, 1), activation='relu')(cnn)
     cnn = MaxPooling2D(pool_size=max_pool_size, strides=(2, 2))(cnn)
+    cnn = Dropout(0.25)(cnn)
     cnn = Conv2D(128, kernel_size, padding='same', strides=(1, 1), activation='relu')(cnn)
     cnn = MaxPooling2D(pool_size=max_pool_size, strides=(2, 2))(cnn)
     cnn = Conv2D(256, kernel_size, padding='same', strides=(1, 1), activation='relu')(cnn)
     cnn = MaxPooling2D(pool_size=max_pool_size, strides=(2, 2))(cnn)
+    cnn = Dropout(0.25)(cnn)
     cnn = Conv2D(256, kernel_size, padding='same', strides=(1, 1), activation='relu')(cnn)
     # 入力を平滑化する層（いわゆるデータをフラット化する層、例えば4次元配列を1次元配列に変換するなど）
     fc = Flatten()(cnn)
     # denseは全結合層
     fc = Dense(1000, activation='relu')(fc)
-    fc = Dropout(1.0)(fc)
+    fc = Dropout(0.5)(fc)
     softmax = Dense(10, activation='softmax')(fc)
     model = Model(input=input, output=softmax)
     
@@ -78,7 +80,7 @@ def train():
     print('Test accuracy:', score[1])
 
 
-# In[8]:
+# In[5]:
 
 
 train()

@@ -1,7 +1,7 @@
 
 # coding: utf-8
 
-# In[4]:
+# In[1]:
 
 
 # import
@@ -23,7 +23,7 @@ from chainer import optimizers, training
 from chainer.training import extensions
 
 
-# In[12]:
+# In[2]:
 
 
 # データセットのロード
@@ -31,7 +31,7 @@ train, test = get_cifar10(withlabel=True, ndim=1)
 train, validation = chainer.datasets.split_dataset_random(train, 3072, seed=0)
 
 
-# In[13]:
+# In[3]:
 
 
 class MyConvNet(Chain):
@@ -54,23 +54,26 @@ class MyConvNet(Chain):
             self.conv3 = L.Convolution2D(
                 in_channels=None, out_channels=128, ksize=3, stride=1, pad=1)
             self.conv4 = L.Convolution2D(
-                in_channels=None, out_channels=128, ksize=3, stride=1, pad=1)
-            self.fc5 = L.Linear(None, 1000)
-            self.fc6 = L.Linear(None, 10)
+                in_channels=None, out_channels=256, ksize=3, stride=1, pad=1)
+            self.conv5 = L.Convolution2D(
+                in_channels=None, out_channels=256, ksize=3, stride=1, pad=1)
+            self.fc6 = L.Linear(None, 1000)
+            self.fc7 = L.Linear(None, 10)
 
     def __call__(self, x):
-        h = F.sigmoid(self.conv1(x.reshape((-1, 3, 32, 32))))
+        h = F.relu(self.conv1(x.reshape((-1, 3, 32, 32))))
         h = F.max_pooling_2d(h, ksize=2, stride=2)
-        h = F.sigmoid(self.conv2(h))
+        h = F.relu(self.conv2(h))
         h = F.max_pooling_2d(h, ksize=2, stride=2)
-        h = F.sigmoid(self.conv3(h))
+        h = F.relu(self.conv3(h))
         h = F.max_pooling_2d(h, ksize=2, stride=2)
-        h = F.sigmoid(self.conv4(h))
-        h = F.sigmoid(self.fc5(h))
-        return self.fc6(h)
+        h = F.relu(self.conv4(h))
+        h = F.relu(self.conv5(h))
+        h = F.sigmoid(self.fc6(h))
+        return self.fc7(h)
 
 
-# In[14]:
+# In[4]:
 
 
 def  train_and_validate(
@@ -107,7 +110,7 @@ def  train_and_validate(
     trainer.run()
 
 
-# In[15]:
+# In[5]:
 
 
 n_epoch = 20
