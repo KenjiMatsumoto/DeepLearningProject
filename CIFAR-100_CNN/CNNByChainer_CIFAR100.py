@@ -6,9 +6,6 @@
 
 # import
 get_ipython().run_line_magic('matplotlib', 'inline')
-# cupyのインストール
-get_ipython().system('curl https://colab.chainer.org/install | sh -')
-get_ipython().system('pip install chutil')
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
@@ -21,12 +18,16 @@ import chainer.links as L
 from chainer import Chain
 import chainer.optimizers as optimizers
 
-from chainer.datasets import get_cifar10
+from chainer.datasets.cifar import get_cifar100
 from chainer import optimizers, training
 from chainer.training import extensions
 
+
+# In[2]:
+
+
 # データセットがダウンロード済みでなければ、ダウンロードも行う
-train, test = get_cifar10()
+train, test = get_cifar100()
 train, validation = chainer.datasets.split_dataset_random(train, 40000, seed=0)
 
 
@@ -57,7 +58,7 @@ class MyConvNet(Chain):
             self.conv5 = L.Convolution2D(
                 in_channels=None, out_channels=256, ksize=3, stride=1, pad=1)
             self.fc6 = L.Linear(None, 1000)
-            self.fc7 = L.Linear(None, 10)
+            self.fc7 = L.Linear(None, 100)
 
     def __call__(self, x):
         h = F.relu(self.conv1(x.reshape((-1, 3, 32, 32))))
@@ -125,7 +126,7 @@ def show_test_performance(model, test, batchsize, device=0):
     print("Test accuracy:", results["main/accuracy"])
 
 
-# In[5]:
+# In[ ]:
 
 
 n_epoch = 40
