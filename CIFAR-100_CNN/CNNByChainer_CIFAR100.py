@@ -1,11 +1,13 @@
 
 # coding: utf-8
 
-# In[1]:
+# In[2]:
 
 
 # import
 get_ipython().run_line_magic('matplotlib', 'inline')
+get_ipython().system('curl https://colab.chainer.org/install | sh -')
+get_ipython().system('pip install chutil')
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
@@ -23,7 +25,7 @@ from chainer import optimizers, training
 from chainer.training import extensions
 
 
-# In[2]:
+# In[3]:
 
 
 # データセットがダウンロード済みでなければ、ダウンロードも行う
@@ -126,7 +128,7 @@ def show_test_performance(model, test, batchsize, device=0):
     print("Test accuracy:", results["main/accuracy"])
 
 
-# In[ ]:
+# In[7]:
 
 
 n_epoch = 40

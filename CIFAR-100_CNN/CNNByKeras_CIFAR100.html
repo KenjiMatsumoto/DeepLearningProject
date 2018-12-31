@@ -11773,11 +11773,11 @@ div#notebook {
 
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># import </span>
-<span class="kn">from</span> <span class="nn">keras.datasets</span> <span class="k">import</span> <span class="n">cifar10</span>
+<span class="kn">from</span> <span class="nn">keras.datasets</span> <span class="k">import</span> <span class="n">cifar100</span>
 <span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="k">import</span> <span class="n">train_test_split</span>
 <span class="kn">from</span> <span class="nn">keras.models</span> <span class="k">import</span> <span class="n">Model</span>
 <span class="kn">from</span> <span class="nn">keras.layers</span> <span class="k">import</span> <span class="n">Conv2D</span><span class="p">,</span> <span class="n">MaxPooling2D</span><span class="p">,</span> <span class="n">Dropout</span><span class="p">,</span> <span class="n">Input</span><span class="p">,</span> <span class="n">Dense</span><span class="p">,</span> <span class="n">Flatten</span>
@@ -11792,30 +11792,10 @@ div#notebook {
 </div>
 </div>
 
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stderr output_text">
-<pre>/Users/kenjimatsumoto/.pyenv/versions/anaconda3-5.2.0/lib/python3.6/site-packages/h5py/__init__.py:36: FutureWarning: Conversion of the second argument of issubdtype from `float` to `np.floating` is deprecated. In future, it will be treated as `np.float64 == np.dtype(float).type`.
-  from ._conv import register_converters as _register_converters
-Using TensorFlow backend.
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># model作成 CNNByChainerと同じ層構成にする</span>
@@ -11841,7 +11821,7 @@ Using TensorFlow backend.
     <span class="c1"># denseは全結合層</span>
     <span class="n">fc</span> <span class="o">=</span> <span class="n">Dense</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;relu&#39;</span><span class="p">)(</span><span class="n">fc</span><span class="p">)</span>
     <span class="n">fc</span> <span class="o">=</span> <span class="n">Dropout</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)(</span><span class="n">fc</span><span class="p">)</span>
-    <span class="n">softmax</span> <span class="o">=</span> <span class="n">Dense</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;softmax&#39;</span><span class="p">)(</span><span class="n">fc</span><span class="p">)</span>
+    <span class="n">softmax</span> <span class="o">=</span> <span class="n">Dense</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;softmax&#39;</span><span class="p">)(</span><span class="n">fc</span><span class="p">)</span>
     <span class="n">model</span> <span class="o">=</span> <span class="n">Model</span><span class="p">(</span><span class="nb">input</span><span class="o">=</span><span class="nb">input</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="n">softmax</span><span class="p">)</span>
     
     <span class="k">return</span> <span class="n">model</span>
@@ -11865,9 +11845,9 @@ Using TensorFlow backend.
     <span class="n">x_test</span> <span class="o">/=</span> <span class="mi">255</span>
 
     <span class="c1"># one-hot vector形式に変換する</span>
-    <span class="n">y_train</span> <span class="o">=</span> <span class="n">to_categorical</span><span class="p">(</span><span class="n">y_train</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
-    <span class="n">y_valid</span> <span class="o">=</span> <span class="n">to_categorical</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
-    <span class="n">y_test</span> <span class="o">=</span> <span class="n">to_categorical</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+    <span class="n">y_train</span> <span class="o">=</span> <span class="n">to_categorical</span><span class="p">(</span><span class="n">y_train</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+    <span class="n">y_valid</span> <span class="o">=</span> <span class="n">to_categorical</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+    <span class="n">y_test</span> <span class="o">=</span> <span class="n">to_categorical</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
     
     <span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">loss</span><span class="o">=</span><span class="n">categorical_crossentropy</span><span class="p">,</span>
                   <span class="n">optimizer</span><span class="o">=</span><span class="n">Adam</span><span class="p">(),</span>  <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;accuracy&#39;</span><span class="p">])</span>
@@ -11886,13 +11866,124 @@ Using TensorFlow backend.
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[10]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">train</span><span class="p">()</span>
 </pre></div>
 
 </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>/usr/local/lib/python3.6/dist-packages/ipykernel_launcher.py:24: UserWarning: Update your `Model` call to the Keras 2 API: `Model(inputs=Tensor(&#34;in..., outputs=Tensor(&#34;de...)`
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Train on 50000 samples, validate on 10000 samples
+Epoch 1/40
+50000/50000 [==============================] - 17s 337us/step - loss: 4.3038 - acc: 0.0336 - val_loss: 3.9141 - val_acc: 0.0759
+Epoch 2/40
+50000/50000 [==============================] - 12s 248us/step - loss: 3.7697 - acc: 0.1024 - val_loss: 3.4908 - val_acc: 0.1527
+Epoch 3/40
+50000/50000 [==============================] - 13s 255us/step - loss: 3.3696 - acc: 0.1769 - val_loss: 3.0287 - val_acc: 0.2402
+Epoch 4/40
+50000/50000 [==============================] - 13s 253us/step - loss: 3.0892 - acc: 0.2329 - val_loss: 2.7692 - val_acc: 0.2908
+Epoch 5/40
+50000/50000 [==============================] - 13s 254us/step - loss: 2.8794 - acc: 0.2777 - val_loss: 2.5764 - val_acc: 0.3305
+Epoch 6/40
+50000/50000 [==============================] - 13s 253us/step - loss: 2.7158 - acc: 0.3074 - val_loss: 2.4370 - val_acc: 0.3705
+Epoch 7/40
+50000/50000 [==============================] - 13s 254us/step - loss: 2.5776 - acc: 0.3365 - val_loss: 2.1879 - val_acc: 0.4208
+Epoch 8/40
+50000/50000 [==============================] - 13s 255us/step - loss: 2.4642 - acc: 0.3595 - val_loss: 2.0505 - val_acc: 0.4527
+Epoch 9/40
+50000/50000 [==============================] - 13s 256us/step - loss: 2.3585 - acc: 0.3833 - val_loss: 1.9710 - val_acc: 0.4717
+Epoch 10/40
+50000/50000 [==============================] - 13s 253us/step - loss: 2.2679 - acc: 0.4015 - val_loss: 1.8626 - val_acc: 0.4940
+Epoch 11/40
+50000/50000 [==============================] - 13s 254us/step - loss: 2.1996 - acc: 0.4156 - val_loss: 1.7272 - val_acc: 0.5301
+Epoch 12/40
+50000/50000 [==============================] - 13s 254us/step - loss: 2.1120 - acc: 0.4334 - val_loss: 1.6442 - val_acc: 0.5586
+Epoch 13/40
+50000/50000 [==============================] - 13s 253us/step - loss: 2.0564 - acc: 0.4441 - val_loss: 1.5867 - val_acc: 0.5652
+Epoch 14/40
+50000/50000 [==============================] - 13s 254us/step - loss: 1.9958 - acc: 0.4604 - val_loss: 1.5992 - val_acc: 0.5651
+Epoch 15/40
+50000/50000 [==============================] - 13s 252us/step - loss: 1.9331 - acc: 0.4720 - val_loss: 1.4124 - val_acc: 0.6072
+Epoch 16/40
+50000/50000 [==============================] - 13s 253us/step - loss: 1.8797 - acc: 0.4843 - val_loss: 1.3739 - val_acc: 0.6157
+Epoch 17/40
+50000/50000 [==============================] - 13s 254us/step - loss: 1.8460 - acc: 0.4913 - val_loss: 1.3131 - val_acc: 0.6316
+Epoch 18/40
+50000/50000 [==============================] - 13s 255us/step - loss: 1.7904 - acc: 0.5057 - val_loss: 1.2803 - val_acc: 0.6439
+Epoch 19/40
+50000/50000 [==============================] - 13s 254us/step - loss: 1.7428 - acc: 0.5138 - val_loss: 1.2273 - val_acc: 0.6519
+Epoch 20/40
+50000/50000 [==============================] - 13s 254us/step - loss: 1.7024 - acc: 0.5245 - val_loss: 1.1449 - val_acc: 0.6754
+Epoch 21/40
+50000/50000 [==============================] - 13s 253us/step - loss: 1.6695 - acc: 0.5324 - val_loss: 1.1006 - val_acc: 0.6878
+Epoch 22/40
+50000/50000 [==============================] - 13s 256us/step - loss: 1.6340 - acc: 0.5399 - val_loss: 1.0528 - val_acc: 0.7065
+Epoch 23/40
+50000/50000 [==============================] - 13s 251us/step - loss: 1.6029 - acc: 0.5464 - val_loss: 0.9985 - val_acc: 0.7188
+Epoch 24/40
+50000/50000 [==============================] - 13s 253us/step - loss: 1.5642 - acc: 0.5554 - val_loss: 0.9364 - val_acc: 0.7386
+Epoch 25/40
+50000/50000 [==============================] - 13s 253us/step - loss: 1.5460 - acc: 0.5606 - val_loss: 0.9249 - val_acc: 0.7470
+Epoch 26/40
+50000/50000 [==============================] - 13s 254us/step - loss: 1.5147 - acc: 0.5678 - val_loss: 0.8616 - val_acc: 0.7618
+Epoch 27/40
+50000/50000 [==============================] - 13s 253us/step - loss: 1.4854 - acc: 0.5723 - val_loss: 0.8983 - val_acc: 0.7502
+Epoch 28/40
+50000/50000 [==============================] - 13s 252us/step - loss: 1.4615 - acc: 0.5824 - val_loss: 0.8256 - val_acc: 0.7670
+Epoch 29/40
+50000/50000 [==============================] - 12s 245us/step - loss: 1.4448 - acc: 0.5856 - val_loss: 0.8036 - val_acc: 0.7760
+Epoch 30/40
+50000/50000 [==============================] - 12s 243us/step - loss: 1.4312 - acc: 0.5889 - val_loss: 0.7782 - val_acc: 0.7824
+Epoch 31/40
+50000/50000 [==============================] - 12s 244us/step - loss: 1.4029 - acc: 0.5967 - val_loss: 0.7332 - val_acc: 0.7967
+Epoch 32/40
+50000/50000 [==============================] - 12s 241us/step - loss: 1.3889 - acc: 0.6006 - val_loss: 0.7007 - val_acc: 0.8108
+Epoch 33/40
+50000/50000 [==============================] - 13s 253us/step - loss: 1.3601 - acc: 0.6051 - val_loss: 0.6934 - val_acc: 0.8023
+Epoch 34/40
+50000/50000 [==============================] - 13s 254us/step - loss: 1.3515 - acc: 0.6085 - val_loss: 0.6566 - val_acc: 0.8176
+Epoch 35/40
+50000/50000 [==============================] - 13s 254us/step - loss: 1.3397 - acc: 0.6110 - val_loss: 0.6483 - val_acc: 0.8236
+Epoch 36/40
+50000/50000 [==============================] - 13s 254us/step - loss: 1.3146 - acc: 0.6159 - val_loss: 0.6181 - val_acc: 0.8331
+Epoch 37/40
+50000/50000 [==============================] - 13s 254us/step - loss: 1.3011 - acc: 0.6230 - val_loss: 0.6352 - val_acc: 0.8240
+Epoch 38/40
+50000/50000 [==============================] - 13s 254us/step - loss: 1.2830 - acc: 0.6243 - val_loss: 0.5764 - val_acc: 0.8419
+Epoch 39/40
+50000/50000 [==============================] - 13s 253us/step - loss: 1.2736 - acc: 0.6296 - val_loss: 0.5457 - val_acc: 0.8533
+Epoch 40/40
+50000/50000 [==============================] - 13s 253us/step - loss: 1.2637 - acc: 0.6301 - val_loss: 0.5717 - val_acc: 0.8484
+Test loss: 2.287442290496826
+Test accuracy: 0.4588
+</pre>
+</div>
+</div>
+
 </div>
 </div>
 

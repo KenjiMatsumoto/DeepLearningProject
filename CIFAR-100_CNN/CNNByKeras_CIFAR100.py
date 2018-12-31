@@ -1,11 +1,11 @@
 
 # coding: utf-8
 
-# In[1]:
+# In[ ]:
 
 
 # import 
-from keras.datasets import cifar10
+from keras.datasets import cifar100
 from sklearn.model_selection import train_test_split
 from keras.models import Model
 from keras.layers import Conv2D, MaxPooling2D, Dropout, Input, Dense, Flatten
@@ -16,7 +16,7 @@ import argparse
 import numpy as np
 
 
-# In[2]:
+# In[ ]:
 
 
 # model作成 CNNByChainerと同じ層構成にする
@@ -42,7 +42,7 @@ def create_CNN_model(input_shape=(32, 32, 3), class_num=100):
     # denseは全結合層
     fc = Dense(1000, activation='relu')(fc)
     fc = Dropout(0.5)(fc)
-    softmax = Dense(10, activation='softmax')(fc)
+    softmax = Dense(100, activation='softmax')(fc)
     model = Model(input=input, output=softmax)
     
     return model
@@ -66,9 +66,9 @@ def train():
     x_test /= 255
 
     # one-hot vector形式に変換する
-    y_train = to_categorical(y_train, 10)
-    y_valid = to_categorical(y_valid, 10)
-    y_test = to_categorical(y_test, 10)
+    y_train = to_categorical(y_train, 100)
+    y_valid = to_categorical(y_valid, 100)
+    y_test = to_categorical(y_test, 100)
     
     model.compile(loss=categorical_crossentropy,
                   optimizer=Adam(),  metrics=['accuracy'])
@@ -80,7 +80,7 @@ def train():
     print('Test accuracy:', score[1])
 
 
-# In[ ]:
+# In[10]:
 
 
 train()

@@ -11773,11 +11773,13 @@ div#notebook {
 
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># import</span>
 <span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="o">!</span>curl https://colab.chainer.org/install <span class="p">|</span> sh -
+<span class="o">!</span>pip install chutil
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
@@ -11808,9 +11810,23 @@ div#notebook {
 <div class="prompt"></div>
 
 
-<div class="output_subarea output_stream output_stderr output_text">
-<pre>/Users/kenjimatsumoto/.pyenv/versions/anaconda3-5.2.0/lib/python3.6/site-packages/h5py/__init__.py:36: FutureWarning: Conversion of the second argument of issubdtype from `float` to `np.floating` is deprecated. In future, it will be treated as `np.float64 == np.dtype(float).type`.
-  from ._conv import register_converters as _register_converters
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100  1379  100  1379    0     0   8307      0 --:--:-- --:--:-- --:--:--  8307
++ apt -y -q install cuda-libraries-dev-9-2
+Reading package lists...
+Building dependency tree...
+Reading state information...
+cuda-libraries-dev-9-2 is already the newest version (9.2.148-1).
+0 upgraded, 0 newly installed, 0 to remove and 8 not upgraded.
++ pip install -q cupy-cuda92  chainer 
++ set +ex
+Installation succeeded!
+Collecting chutil
+  Downloading https://files.pythonhosted.org/packages/74/d3/e761e43572a1bc53ab787a11b227b9ccc0e857cdb531805fb12e4e15707a/chutil-0.1.4-py3-none-any.whl
+Installing collected packages: chutil
+Successfully installed chutil-0.1.4
 </pre>
 </div>
 </div>
@@ -11821,7 +11837,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># データセットがダウンロード済みでなければ、ダウンロードも行う</span>
@@ -11845,108 +11861,6 @@ div#notebook {
 <div class="output_subarea output_stream output_stderr output_text">
 <pre>Downloading from https://www.cs.toronto.edu/~kriz/cifar-100-python.tar.gz...
 </pre>
-</div>
-</div>
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-<div class="output_subarea output_text output_error">
-<pre>
-<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg">KeyboardInterrupt</span>                         Traceback (most recent call last)
-<span class="ansi-green-fg">&lt;ipython-input-2-7da9f4ebeb57&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span><span class="ansi-blue-fg">()</span>
-<span class="ansi-green-intense-fg ansi-bold">      1</span> <span class="ansi-red-fg"># データセットがダウンロード済みでなければ、ダウンロードも行う</span>
-<span class="ansi-green-fg">----&gt; 2</span><span class="ansi-red-fg"> </span>train<span class="ansi-blue-fg">,</span> test <span class="ansi-blue-fg">=</span> get_cifar100<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">      3</span> train<span class="ansi-blue-fg">,</span> validation <span class="ansi-blue-fg">=</span> chainer<span class="ansi-blue-fg">.</span>datasets<span class="ansi-blue-fg">.</span>split_dataset_random<span class="ansi-blue-fg">(</span>train<span class="ansi-blue-fg">,</span> <span class="ansi-cyan-fg">40000</span><span class="ansi-blue-fg">,</span> seed<span class="ansi-blue-fg">=</span><span class="ansi-cyan-fg">0</span><span class="ansi-blue-fg">)</span>
-
-<span class="ansi-green-fg">~/.pyenv/versions/anaconda3-5.2.0/lib/python3.6/site-packages/chainer/datasets/cifar.py</span> in <span class="ansi-cyan-fg">get_cifar100</span><span class="ansi-blue-fg">(withlabel, ndim, scale, dtype)</span>
-<span class="ansi-green-intense-fg ansi-bold">     82</span> 
-<span class="ansi-green-intense-fg ansi-bold">     83</span>     &#34;&#34;&#34;
-<span class="ansi-green-fg">---&gt; 84</span><span class="ansi-red-fg">     </span><span class="ansi-green-fg">return</span> _get_cifar<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#39;cifar-100&#39;</span><span class="ansi-blue-fg">,</span> withlabel<span class="ansi-blue-fg">,</span> ndim<span class="ansi-blue-fg">,</span> scale<span class="ansi-blue-fg">,</span> dtype<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">     85</span> 
-<span class="ansi-green-intense-fg ansi-bold">     86</span> 
-
-<span class="ansi-green-fg">~/.pyenv/versions/anaconda3-5.2.0/lib/python3.6/site-packages/chainer/datasets/cifar.py</span> in <span class="ansi-cyan-fg">_get_cifar</span><span class="ansi-blue-fg">(name, withlabel, ndim, scale, dtype)</span>
-<span class="ansi-green-intense-fg ansi-bold">    134</span>                 &#39;test_x&#39;: test_x, &#39;test_y&#39;: test_y}
-<span class="ansi-green-intense-fg ansi-bold">    135</span> 
-<span class="ansi-green-fg">--&gt; 136</span><span class="ansi-red-fg">     </span>raw <span class="ansi-blue-fg">=</span> download<span class="ansi-blue-fg">.</span>cache_or_load_file<span class="ansi-blue-fg">(</span>npz_path<span class="ansi-blue-fg">,</span> creator<span class="ansi-blue-fg">,</span> numpy<span class="ansi-blue-fg">.</span>load<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    137</span>     train = _preprocess_cifar(raw[&#39;train_x&#39;], raw[&#39;train_y&#39;], withlabel,
-<span class="ansi-green-intense-fg ansi-bold">    138</span>                               ndim, scale, dtype)
-
-<span class="ansi-green-fg">~/.pyenv/versions/anaconda3-5.2.0/lib/python3.6/site-packages/chainer/dataset/download.py</span> in <span class="ansi-cyan-fg">cache_or_load_file</span><span class="ansi-blue-fg">(path, creator, loader)</span>
-<span class="ansi-green-intense-fg ansi-bold">    152</span>         file_name <span class="ansi-blue-fg">=</span> os<span class="ansi-blue-fg">.</span>path<span class="ansi-blue-fg">.</span>basename<span class="ansi-blue-fg">(</span>path<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    153</span>         temp_path <span class="ansi-blue-fg">=</span> os<span class="ansi-blue-fg">.</span>path<span class="ansi-blue-fg">.</span>join<span class="ansi-blue-fg">(</span>temp_dir<span class="ansi-blue-fg">,</span> file_name<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-fg">--&gt; 154</span><span class="ansi-red-fg">         </span>content <span class="ansi-blue-fg">=</span> creator<span class="ansi-blue-fg">(</span>temp_path<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    155</span>         <span class="ansi-green-fg">with</span> filelock<span class="ansi-blue-fg">.</span>FileLock<span class="ansi-blue-fg">(</span>lock_path<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-intense-fg ansi-bold">    156</span>             <span class="ansi-green-fg">if</span> <span class="ansi-green-fg">not</span> os<span class="ansi-blue-fg">.</span>path<span class="ansi-blue-fg">.</span>exists<span class="ansi-blue-fg">(</span>path<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
-
-<span class="ansi-green-fg">~/.pyenv/versions/anaconda3-5.2.0/lib/python3.6/site-packages/chainer/datasets/cifar.py</span> in <span class="ansi-cyan-fg">creator</span><span class="ansi-blue-fg">(path)</span>
-<span class="ansi-green-intense-fg ansi-bold">     92</span> 
-<span class="ansi-green-intense-fg ansi-bold">     93</span>     <span class="ansi-green-fg">def</span> creator<span class="ansi-blue-fg">(</span>path<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-fg">---&gt; 94</span><span class="ansi-red-fg">         </span>archive_path <span class="ansi-blue-fg">=</span> download<span class="ansi-blue-fg">.</span>cached_download<span class="ansi-blue-fg">(</span>url<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">     95</span> 
-<span class="ansi-green-intense-fg ansi-bold">     96</span>         <span class="ansi-green-fg">if</span> name <span class="ansi-blue-fg">==</span> <span class="ansi-blue-fg">&#39;cifar-10&#39;</span><span class="ansi-blue-fg">:</span>
-
-<span class="ansi-green-fg">~/.pyenv/versions/anaconda3-5.2.0/lib/python3.6/site-packages/chainer/dataset/download.py</span> in <span class="ansi-cyan-fg">cached_download</span><span class="ansi-blue-fg">(url)</span>
-<span class="ansi-green-intense-fg ansi-bold">    107</span>         sys<span class="ansi-blue-fg">.</span>stderr<span class="ansi-blue-fg">.</span>write<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#39;Downloading from {}...\n&#39;</span><span class="ansi-blue-fg">.</span>format<span class="ansi-blue-fg">(</span>url<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    108</span>         sys<span class="ansi-blue-fg">.</span>stderr<span class="ansi-blue-fg">.</span>flush<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-fg">--&gt; 109</span><span class="ansi-red-fg">         </span>request<span class="ansi-blue-fg">.</span>urlretrieve<span class="ansi-blue-fg">(</span>url<span class="ansi-blue-fg">,</span> temp_path<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    110</span>         <span class="ansi-green-fg">with</span> filelock<span class="ansi-blue-fg">.</span>FileLock<span class="ansi-blue-fg">(</span>lock_path<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-intense-fg ansi-bold">    111</span>             shutil<span class="ansi-blue-fg">.</span>move<span class="ansi-blue-fg">(</span>temp_path<span class="ansi-blue-fg">,</span> cache_path<span class="ansi-blue-fg">)</span>
-
-<span class="ansi-green-fg">~/.pyenv/versions/anaconda3-5.2.0/lib/python3.6/urllib/request.py</span> in <span class="ansi-cyan-fg">urlretrieve</span><span class="ansi-blue-fg">(url, filename, reporthook, data)</span>
-<span class="ansi-green-intense-fg ansi-bold">    275</span> 
-<span class="ansi-green-intense-fg ansi-bold">    276</span>             <span class="ansi-green-fg">while</span> <span class="ansi-green-fg">True</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-fg">--&gt; 277</span><span class="ansi-red-fg">                 </span>block <span class="ansi-blue-fg">=</span> fp<span class="ansi-blue-fg">.</span>read<span class="ansi-blue-fg">(</span>bs<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    278</span>                 <span class="ansi-green-fg">if</span> <span class="ansi-green-fg">not</span> block<span class="ansi-blue-fg">:</span>
-<span class="ansi-green-intense-fg ansi-bold">    279</span>                     <span class="ansi-green-fg">break</span>
-
-<span class="ansi-green-fg">~/.pyenv/versions/anaconda3-5.2.0/lib/python3.6/http/client.py</span> in <span class="ansi-cyan-fg">read</span><span class="ansi-blue-fg">(self, amt)</span>
-<span class="ansi-green-intense-fg ansi-bold">    447</span>             <span class="ansi-red-fg"># Amount is given, implement using readinto</span>
-<span class="ansi-green-intense-fg ansi-bold">    448</span>             b <span class="ansi-blue-fg">=</span> bytearray<span class="ansi-blue-fg">(</span>amt<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-fg">--&gt; 449</span><span class="ansi-red-fg">             </span>n <span class="ansi-blue-fg">=</span> self<span class="ansi-blue-fg">.</span>readinto<span class="ansi-blue-fg">(</span>b<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    450</span>             <span class="ansi-green-fg">return</span> memoryview<span class="ansi-blue-fg">(</span>b<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">:</span>n<span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">.</span>tobytes<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    451</span>         <span class="ansi-green-fg">else</span><span class="ansi-blue-fg">:</span>
-
-<span class="ansi-green-fg">~/.pyenv/versions/anaconda3-5.2.0/lib/python3.6/http/client.py</span> in <span class="ansi-cyan-fg">readinto</span><span class="ansi-blue-fg">(self, b)</span>
-<span class="ansi-green-intense-fg ansi-bold">    491</span>         <span class="ansi-red-fg"># connection, and the user is reading more bytes than will be provided</span>
-<span class="ansi-green-intense-fg ansi-bold">    492</span>         <span class="ansi-red-fg"># (for example, reading in 1k chunks)</span>
-<span class="ansi-green-fg">--&gt; 493</span><span class="ansi-red-fg">         </span>n <span class="ansi-blue-fg">=</span> self<span class="ansi-blue-fg">.</span>fp<span class="ansi-blue-fg">.</span>readinto<span class="ansi-blue-fg">(</span>b<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    494</span>         <span class="ansi-green-fg">if</span> <span class="ansi-green-fg">not</span> n <span class="ansi-green-fg">and</span> b<span class="ansi-blue-fg">:</span>
-<span class="ansi-green-intense-fg ansi-bold">    495</span>             <span class="ansi-red-fg"># Ideally, we would raise IncompleteRead if the content-length</span>
-
-<span class="ansi-green-fg">~/.pyenv/versions/anaconda3-5.2.0/lib/python3.6/socket.py</span> in <span class="ansi-cyan-fg">readinto</span><span class="ansi-blue-fg">(self, b)</span>
-<span class="ansi-green-intense-fg ansi-bold">    584</span>         <span class="ansi-green-fg">while</span> <span class="ansi-green-fg">True</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-intense-fg ansi-bold">    585</span>             <span class="ansi-green-fg">try</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-fg">--&gt; 586</span><span class="ansi-red-fg">                 </span><span class="ansi-green-fg">return</span> self<span class="ansi-blue-fg">.</span>_sock<span class="ansi-blue-fg">.</span>recv_into<span class="ansi-blue-fg">(</span>b<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    587</span>             <span class="ansi-green-fg">except</span> timeout<span class="ansi-blue-fg">:</span>
-<span class="ansi-green-intense-fg ansi-bold">    588</span>                 self<span class="ansi-blue-fg">.</span>_timeout_occurred <span class="ansi-blue-fg">=</span> <span class="ansi-green-fg">True</span>
-
-<span class="ansi-green-fg">~/.pyenv/versions/anaconda3-5.2.0/lib/python3.6/ssl.py</span> in <span class="ansi-cyan-fg">recv_into</span><span class="ansi-blue-fg">(self, buffer, nbytes, flags)</span>
-<span class="ansi-green-intense-fg ansi-bold">   1007</span>                   <span class="ansi-blue-fg">&#34;non-zero flags not allowed in calls to recv_into() on %s&#34;</span> <span class="ansi-blue-fg">%</span>
-<span class="ansi-green-intense-fg ansi-bold">   1008</span>                   self.__class__)
-<span class="ansi-green-fg">-&gt; 1009</span><span class="ansi-red-fg">             </span><span class="ansi-green-fg">return</span> self<span class="ansi-blue-fg">.</span>read<span class="ansi-blue-fg">(</span>nbytes<span class="ansi-blue-fg">,</span> buffer<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">   1010</span>         <span class="ansi-green-fg">else</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-intense-fg ansi-bold">   1011</span>             <span class="ansi-green-fg">return</span> socket<span class="ansi-blue-fg">.</span>recv_into<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">,</span> buffer<span class="ansi-blue-fg">,</span> nbytes<span class="ansi-blue-fg">,</span> flags<span class="ansi-blue-fg">)</span>
-
-<span class="ansi-green-fg">~/.pyenv/versions/anaconda3-5.2.0/lib/python3.6/ssl.py</span> in <span class="ansi-cyan-fg">read</span><span class="ansi-blue-fg">(self, len, buffer)</span>
-<span class="ansi-green-intense-fg ansi-bold">    869</span>             <span class="ansi-green-fg">raise</span> ValueError<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#34;Read on closed or unwrapped SSL socket.&#34;</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    870</span>         <span class="ansi-green-fg">try</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-fg">--&gt; 871</span><span class="ansi-red-fg">             </span><span class="ansi-green-fg">return</span> self<span class="ansi-blue-fg">.</span>_sslobj<span class="ansi-blue-fg">.</span>read<span class="ansi-blue-fg">(</span>len<span class="ansi-blue-fg">,</span> buffer<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    872</span>         <span class="ansi-green-fg">except</span> SSLError <span class="ansi-green-fg">as</span> x<span class="ansi-blue-fg">:</span>
-<span class="ansi-green-intense-fg ansi-bold">    873</span>             <span class="ansi-green-fg">if</span> x<span class="ansi-blue-fg">.</span>args<span class="ansi-blue-fg">[</span><span class="ansi-cyan-fg">0</span><span class="ansi-blue-fg">]</span> <span class="ansi-blue-fg">==</span> SSL_ERROR_EOF <span class="ansi-green-fg">and</span> self<span class="ansi-blue-fg">.</span>suppress_ragged_eofs<span class="ansi-blue-fg">:</span>
-
-<span class="ansi-green-fg">~/.pyenv/versions/anaconda3-5.2.0/lib/python3.6/ssl.py</span> in <span class="ansi-cyan-fg">read</span><span class="ansi-blue-fg">(self, len, buffer)</span>
-<span class="ansi-green-intense-fg ansi-bold">    629</span>         &#34;&#34;&#34;
-<span class="ansi-green-intense-fg ansi-bold">    630</span>         <span class="ansi-green-fg">if</span> buffer <span class="ansi-green-fg">is</span> <span class="ansi-green-fg">not</span> <span class="ansi-green-fg">None</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-fg">--&gt; 631</span><span class="ansi-red-fg">             </span>v <span class="ansi-blue-fg">=</span> self<span class="ansi-blue-fg">.</span>_sslobj<span class="ansi-blue-fg">.</span>read<span class="ansi-blue-fg">(</span>len<span class="ansi-blue-fg">,</span> buffer<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    632</span>         <span class="ansi-green-fg">else</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-intense-fg ansi-bold">    633</span>             v <span class="ansi-blue-fg">=</span> self<span class="ansi-blue-fg">.</span>_sslobj<span class="ansi-blue-fg">.</span>read<span class="ansi-blue-fg">(</span>len<span class="ansi-blue-fg">)</span>
-
-<span class="ansi-red-fg">KeyboardInterrupt</span>: </pre>
 </div>
 </div>
 
@@ -12072,7 +11986,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">n_epoch</span> <span class="o">=</span> <span class="mi">40</span>
@@ -12087,6 +12001,65 @@ div#notebook {
 </pre></div>
 
 </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>epoch       main/loss   main/accuracy  val/main/loss  val/main/accuracy  elapsed_time
+1           4.06144     0.0731829      3.60926        0.13835            21.8792       
+2           3.24881     0.208934       3.08614        0.238331           35.0247       
+3           2.77216     0.296426       2.77612        0.303402           48.1662       
+4           2.4122      0.370393       2.65091        0.329213           61.2678       
+5           2.08473     0.439072       2.50608        0.355914           74.377        
+6           1.74294     0.51883        2.51225        0.370649           87.4692       
+7           1.37447     0.608626       2.68932        0.379055           100.541       
+8           1.00209     0.703726       2.88676        0.368374           113.672       
+9           0.672369    0.794753       3.31775        0.377077           126.779       
+10          0.427443    0.865485       3.81099        0.365012           139.878       
+11          0.293868    0.906699       4.19246        0.368473           152.96        
+12          0.209034    0.934245       4.7283         0.371143           165.994       
+13          0.186995    0.941244       4.98626        0.360265           179.049       
+14          0.180221    0.944712       5.11959        0.360463           192.069       
+15          0.153128    0.951378       5.42914        0.361551           205.127       
+16          0.144571    0.954127       5.42848        0.362243           218.229       
+17          0.134885    0.957019       5.76732        0.358188           231.314       
+18          0.143967    0.954527       5.89391        0.358881           244.348       
+19          0.137435    0.955871       5.75215        0.349387           257.448       
+20          0.133775    0.959034       5.92265        0.359968           270.506       
+21          0.128837    0.959964       6.39851        0.362342           283.602       
+22          0.119909    0.96269        6.40553        0.36254            296.659       
+23          0.126464    0.961312       6.33696        0.360759           309.708       
+24          0.100635    0.970277       6.17057        0.365012           322.703       
+25          0.126965    0.961387       6.31978        0.360364           335.766       
+26          0.119119    0.962665       6.98876        0.354035           348.785       
+27          0.11541     0.965181       6.76308        0.350178           361.945       
+28          0.0940259   0.970903       7.11259        0.355716           374.968       
+29          0.115888    0.964856       6.95373        0.355419           388.053       
+30          0.104657    0.967748       7.35806        0.355123           401.074       
+31          0.128136    0.961112       7.08144        0.347508           414.133       
+32          0.110252    0.966146       6.92089        0.351958           427.149       
+33          0.0811437   0.975639       7.2393         0.346717           440.19        
+34          0.107221    0.96855        7.65959        0.347805           453.211       
+35          0.101238    0.970223       7.58016        0.351167           466.288       
+36          0.102323    0.969251       7.72319        0.349189           479.324       
+37          0.115102    0.966229       7.74733        0.350277           492.388       
+38          0.101075    0.970403       8.28024        0.344937           505.437       
+39          0.097247    0.971995       7.93453        0.347805           518.643       
+40          0.0902967   0.972957       7.97217        0.347805           531.701       
+Test accuracy: 0.363034
+</pre>
+</div>
+</div>
+
 </div>
 </div>
 
