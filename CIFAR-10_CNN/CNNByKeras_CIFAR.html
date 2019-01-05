@@ -11780,7 +11780,7 @@ div#notebook {
 <span class="kn">from</span> <span class="nn">keras.datasets</span> <span class="k">import</span> <span class="n">cifar10</span>
 <span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="k">import</span> <span class="n">train_test_split</span>
 <span class="kn">from</span> <span class="nn">keras.models</span> <span class="k">import</span> <span class="n">Model</span>
-<span class="kn">from</span> <span class="nn">keras.layers</span> <span class="k">import</span> <span class="n">Conv2D</span><span class="p">,</span> <span class="n">MaxPooling2D</span><span class="p">,</span> <span class="n">Dropout</span><span class="p">,</span> <span class="n">Input</span><span class="p">,</span> <span class="n">Dense</span><span class="p">,</span> <span class="n">Flatten</span>
+<span class="kn">from</span> <span class="nn">keras.layers</span> <span class="k">import</span> <span class="n">Conv2D</span><span class="p">,</span> <span class="n">MaxPooling2D</span><span class="p">,</span> <span class="n">AveragePooling2D</span><span class="p">,</span> <span class="n">Dropout</span><span class="p">,</span> <span class="n">Input</span><span class="p">,</span> <span class="n">Dense</span><span class="p">,</span> <span class="n">Flatten</span><span class="p">,</span> <span class="n">BatchNormalization</span><span class="p">,</span> <span class="n">Activation</span><span class="p">,</span> <span class="n">add</span>
 <span class="kn">from</span> <span class="nn">keras.optimizers</span> <span class="k">import</span> <span class="n">Adam</span>
 <span class="kn">from</span> <span class="nn">keras.losses</span> <span class="k">import</span> <span class="n">categorical_crossentropy</span>
 <span class="kn">from</span> <span class="nn">keras.utils</span> <span class="k">import</span> <span class="n">to_categorical</span>
@@ -11816,40 +11816,64 @@ div#notebook {
 <div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># model作成 CNNByChainerと同じ層構成にする</span>
-<span class="k">def</span> <span class="nf">create_CNN_model</span><span class="p">(</span><span class="n">input_shape</span><span class="o">=</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">class_num</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
-    <span class="nb">input</span> <span class="o">=</span> <span class="n">Input</span><span class="p">((</span><span class="mi">32</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
-    <span class="n">kernel_size</span> <span class="o">=</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
-    <span class="n">max_pool_size</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
-    <span class="c1"># 畳み込み層の実装</span>
-    <span class="c1"># 1層目</span>
-    <span class="n">cnn</span> <span class="o">=</span> <span class="n">Conv2D</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="n">kernel_size</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="s1">&#39;same&#39;</span><span class="p">,</span> <span class="n">strides</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;relu&#39;</span><span class="p">,</span> <span class="n">input_shape</span><span class="o">=</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">3</span><span class="p">))(</span><span class="nb">input</span><span class="p">)</span>
-    <span class="n">cnn</span> <span class="o">=</span> <span class="n">MaxPooling2D</span><span class="p">(</span><span class="n">pool_size</span><span class="o">=</span><span class="n">max_pool_size</span><span class="p">,</span> <span class="n">strides</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">))(</span><span class="n">cnn</span><span class="p">)</span>
-    <span class="n">cnn</span> <span class="o">=</span> <span class="n">Conv2D</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="n">kernel_size</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="s1">&#39;same&#39;</span><span class="p">,</span> <span class="n">strides</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;relu&#39;</span><span class="p">)(</span><span class="n">cnn</span><span class="p">)</span>
-    <span class="n">cnn</span> <span class="o">=</span> <span class="n">MaxPooling2D</span><span class="p">(</span><span class="n">pool_size</span><span class="o">=</span><span class="n">max_pool_size</span><span class="p">,</span> <span class="n">strides</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">))(</span><span class="n">cnn</span><span class="p">)</span>
-    <span class="n">cnn</span> <span class="o">=</span> <span class="n">Dropout</span><span class="p">(</span><span class="mf">0.25</span><span class="p">)(</span><span class="n">cnn</span><span class="p">)</span>
-    <span class="n">cnn</span> <span class="o">=</span> <span class="n">Conv2D</span><span class="p">(</span><span class="mi">128</span><span class="p">,</span> <span class="n">kernel_size</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="s1">&#39;same&#39;</span><span class="p">,</span> <span class="n">strides</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;relu&#39;</span><span class="p">)(</span><span class="n">cnn</span><span class="p">)</span>
-    <span class="n">cnn</span> <span class="o">=</span> <span class="n">MaxPooling2D</span><span class="p">(</span><span class="n">pool_size</span><span class="o">=</span><span class="n">max_pool_size</span><span class="p">,</span> <span class="n">strides</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">))(</span><span class="n">cnn</span><span class="p">)</span>
-    <span class="n">cnn</span> <span class="o">=</span> <span class="n">Conv2D</span><span class="p">(</span><span class="mi">256</span><span class="p">,</span> <span class="n">kernel_size</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="s1">&#39;same&#39;</span><span class="p">,</span> <span class="n">strides</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;relu&#39;</span><span class="p">)(</span><span class="n">cnn</span><span class="p">)</span>
-    <span class="n">cnn</span> <span class="o">=</span> <span class="n">MaxPooling2D</span><span class="p">(</span><span class="n">pool_size</span><span class="o">=</span><span class="n">max_pool_size</span><span class="p">,</span> <span class="n">strides</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">))(</span><span class="n">cnn</span><span class="p">)</span>
-    <span class="n">cnn</span> <span class="o">=</span> <span class="n">Dropout</span><span class="p">(</span><span class="mf">0.25</span><span class="p">)(</span><span class="n">cnn</span><span class="p">)</span>
-    <span class="n">cnn</span> <span class="o">=</span> <span class="n">Conv2D</span><span class="p">(</span><span class="mi">256</span><span class="p">,</span> <span class="n">kernel_size</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="s1">&#39;same&#39;</span><span class="p">,</span> <span class="n">strides</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;relu&#39;</span><span class="p">)(</span><span class="n">cnn</span><span class="p">)</span>
-    <span class="c1"># 入力を平滑化する層（いわゆるデータをフラット化する層、例えば4次元配列を1次元配列に変換するなど）</span>
-    <span class="n">fc</span> <span class="o">=</span> <span class="n">Flatten</span><span class="p">()(</span><span class="n">cnn</span><span class="p">)</span>
-    <span class="c1"># denseは全結合層</span>
-    <span class="n">fc</span> <span class="o">=</span> <span class="n">Dense</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;relu&#39;</span><span class="p">)(</span><span class="n">fc</span><span class="p">)</span>
-    <span class="n">fc</span> <span class="o">=</span> <span class="n">Dropout</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)(</span><span class="n">fc</span><span class="p">)</span>
-    <span class="n">softmax</span> <span class="o">=</span> <span class="n">Dense</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;softmax&#39;</span><span class="p">)(</span><span class="n">fc</span><span class="p">)</span>
-    <span class="n">model</span> <span class="o">=</span> <span class="n">Model</span><span class="p">(</span><span class="nb">input</span><span class="o">=</span><span class="nb">input</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="n">softmax</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">rescell</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">filters</span><span class="p">,</span> <span class="n">kernel_size</span><span class="p">,</span> <span class="n">option</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="n">strides</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">option</span><span class="p">:</span>
+        <span class="n">strides</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">x</span><span class="o">=</span><span class="n">Conv2D</span><span class="p">(</span><span class="n">filters</span><span class="o">=</span><span class="n">filters</span><span class="p">,</span><span class="n">kernel_size</span><span class="o">=</span><span class="n">kernel_size</span><span class="p">,</span><span class="n">strides</span><span class="o">=</span><span class="n">strides</span><span class="p">,</span><span class="n">padding</span><span class="o">=</span><span class="s2">&quot;same&quot;</span><span class="p">)(</span><span class="n">data</span><span class="p">)</span>
+    <span class="n">x</span><span class="o">=</span><span class="n">BatchNormalization</span><span class="p">()(</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">x</span><span class="o">=</span><span class="n">Activation</span><span class="p">(</span><span class="s1">&#39;relu&#39;</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span>
     
-    <span class="k">return</span> <span class="n">model</span>
+    <span class="n">data</span><span class="o">=</span><span class="n">Conv2D</span><span class="p">(</span><span class="n">filters</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">3</span><span class="p">]),</span> <span class="n">kernel_size</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="n">strides</span><span class="o">=</span><span class="n">strides</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="s2">&quot;same&quot;</span><span class="p">)(</span><span class="n">data</span><span class="p">)</span>
+    <span class="n">x</span><span class="o">=</span><span class="n">Conv2D</span><span class="p">(</span><span class="n">filters</span><span class="o">=</span><span class="n">filters</span><span class="p">,</span><span class="n">kernel_size</span><span class="o">=</span><span class="n">kernel_size</span><span class="p">,</span><span class="n">strides</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span><span class="n">padding</span><span class="o">=</span><span class="s2">&quot;same&quot;</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">x</span><span class="o">=</span><span class="n">BatchNormalization</span><span class="p">()(</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">x</span><span class="o">=</span><span class="n">add</span><span class="p">([</span><span class="n">x</span><span class="p">,</span><span class="n">data</span><span class="p">])</span>
+    <span class="n">x</span><span class="o">=</span><span class="n">Activation</span><span class="p">(</span><span class="s1">&#39;relu&#39;</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">x</span>
+
+<span class="k">def</span> <span class="nf">ResNet</span><span class="p">(</span><span class="n">img_rows</span><span class="p">,</span> <span class="n">img_cols</span><span class="p">,</span> <span class="n">img_channels</span><span class="p">,</span> <span class="n">x_train</span><span class="p">):</span>
+	<span class="nb">input</span><span class="o">=</span><span class="n">Input</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="n">img_rows</span><span class="p">,</span><span class="n">img_cols</span><span class="p">,</span><span class="n">img_channels</span><span class="p">))</span>
+	<span class="n">x</span><span class="o">=</span><span class="n">Conv2D</span><span class="p">(</span><span class="mi">32</span><span class="p">,(</span><span class="mi">7</span><span class="p">,</span><span class="mi">7</span><span class="p">),</span> <span class="n">padding</span><span class="o">=</span><span class="s2">&quot;same&quot;</span><span class="p">,</span> <span class="n">input_shape</span><span class="o">=</span><span class="n">x_train</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">:],</span><span class="n">activation</span><span class="o">=</span><span class="s2">&quot;relu&quot;</span><span class="p">)(</span><span class="nb">input</span><span class="p">)</span>
+	<span class="n">x</span><span class="o">=</span><span class="n">MaxPooling2D</span><span class="p">(</span><span class="n">pool_size</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">))(</span><span class="n">x</span><span class="p">)</span>
+
+	<span class="n">x</span><span class="o">=</span><span class="n">rescell</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="mi">64</span><span class="p">,(</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
+	<span class="n">x</span><span class="o">=</span><span class="n">rescell</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="mi">64</span><span class="p">,(</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
+	<span class="n">x</span><span class="o">=</span><span class="n">rescell</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="mi">64</span><span class="p">,(</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
+
+	<span class="n">x</span><span class="o">=</span><span class="n">rescell</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="mi">128</span><span class="p">,(</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span><span class="kc">True</span><span class="p">)</span>
+
+	<span class="n">x</span><span class="o">=</span><span class="n">rescell</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="mi">128</span><span class="p">,(</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
+	<span class="n">x</span><span class="o">=</span><span class="n">rescell</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="mi">128</span><span class="p">,(</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
+	<span class="n">x</span><span class="o">=</span><span class="n">rescell</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="mi">128</span><span class="p">,(</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
+
+	<span class="n">x</span><span class="o">=</span><span class="n">rescell</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="mi">256</span><span class="p">,(</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span><span class="kc">True</span><span class="p">)</span>
+
+	<span class="n">x</span><span class="o">=</span><span class="n">rescell</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="mi">256</span><span class="p">,(</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
+	<span class="n">x</span><span class="o">=</span><span class="n">rescell</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="mi">256</span><span class="p">,(</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
+	<span class="n">x</span><span class="o">=</span><span class="n">rescell</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="mi">256</span><span class="p">,(</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
+	<span class="n">x</span><span class="o">=</span><span class="n">rescell</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="mi">256</span><span class="p">,(</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
+	<span class="n">x</span><span class="o">=</span><span class="n">rescell</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="mi">256</span><span class="p">,(</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
+
+	<span class="n">x</span><span class="o">=</span><span class="n">rescell</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="mi">512</span><span class="p">,(</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span><span class="kc">True</span><span class="p">)</span>
+
+	<span class="n">x</span><span class="o">=</span><span class="n">rescell</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="mi">512</span><span class="p">,(</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
+	<span class="n">x</span><span class="o">=</span><span class="n">rescell</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="mi">512</span><span class="p">,(</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
+
+	<span class="n">x</span><span class="o">=</span><span class="n">AveragePooling2D</span><span class="p">(</span><span class="n">pool_size</span><span class="o">=</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span><span class="nb">int</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">2</span><span class="p">])),</span><span class="n">strides</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">))(</span><span class="n">x</span><span class="p">)</span>
+
+	<span class="n">x</span><span class="o">=</span><span class="n">Flatten</span><span class="p">()(</span><span class="n">x</span><span class="p">)</span>
+	<span class="n">x</span><span class="o">=</span><span class="n">Dense</span><span class="p">(</span><span class="n">units</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span><span class="n">kernel_initializer</span><span class="o">=</span><span class="s2">&quot;he_normal&quot;</span><span class="p">,</span><span class="n">activation</span><span class="o">=</span><span class="s2">&quot;softmax&quot;</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span>
+	<span class="n">model</span><span class="o">=</span><span class="n">Model</span><span class="p">(</span><span class="n">inputs</span><span class="o">=</span><span class="nb">input</span><span class="p">,</span><span class="n">outputs</span><span class="o">=</span><span class="p">[</span><span class="n">x</span><span class="p">])</span>
+	<span class="k">return</span> <span class="n">model</span>
 
 <span class="k">def</span> <span class="nf">train</span><span class="p">():</span>
 
-    <span class="n">model</span> <span class="o">=</span> <span class="n">create_CNN_model</span><span class="p">()</span>
+
     <span class="c1"># cifar10のデータ取得</span>
     <span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">),</span> <span class="p">(</span><span class="n">x_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span> <span class="o">=</span> <span class="n">cifar10</span><span class="o">.</span><span class="n">load_data</span><span class="p">()</span>
     <span class="n">x_train1</span><span class="p">,</span> <span class="n">x_valid</span><span class="p">,</span> <span class="n">y_train1</span><span class="p">,</span> <span class="n">y_valid</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+
+    <span class="n">model</span> <span class="o">=</span> <span class="n">ResNet</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span><span class="mi">32</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="n">x_train</span><span class="p">)</span>
     <span class="c1"># RGB画像で32×32なので32×32×3にreshapeする</span>
     <span class="n">x_train</span> <span class="o">=</span> <span class="n">x_train</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">x_train</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
     <span class="n">x_valid</span> <span class="o">=</span> <span class="n">x_valid</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">x_valid</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
@@ -11884,7 +11908,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">train</span><span class="p">()</span>
@@ -11903,101 +11927,92 @@ div#notebook {
 <div class="prompt"></div>
 
 
-<div class="output_subarea output_stream output_stderr output_text">
-<pre>/usr/local/lib/python3.6/dist-packages/ipykernel_launcher.py:24: UserWarning: Update your `Model` call to the Keras 2 API: `Model(inputs=Tensor(&#34;in..., outputs=Tensor(&#34;de...)`
-</pre>
-</div>
-</div>
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Train on 50000 samples, validate on 10000 samples
+<pre>Downloading data from https://www.cs.toronto.edu/~kriz/cifar-10-python.tar.gz
+170500096/170498071 [==============================] - 9s 0us/step
+Train on 50000 samples, validate on 10000 samples
 Epoch 1/40
-50000/50000 [==============================] - 13s 250us/step - loss: 1.6596 - acc: 0.3746 - val_loss: 1.2663 - val_acc: 0.5294
+50000/50000 [==============================] - 141s 3ms/step - loss: 1.9353 - acc: 0.2947 - val_loss: 2.3061 - val_acc: 0.2094
 Epoch 2/40
-50000/50000 [==============================] - 12s 237us/step - loss: 1.2002 - acc: 0.5639 - val_loss: 1.0036 - val_acc: 0.6411
+50000/50000 [==============================] - 128s 3ms/step - loss: 1.4711 - acc: 0.4618 - val_loss: 2.3305 - val_acc: 0.3048
 Epoch 3/40
-50000/50000 [==============================] - 12s 236us/step - loss: 0.9965 - acc: 0.6464 - val_loss: 0.8183 - val_acc: 0.7098
+50000/50000 [==============================] - 128s 3ms/step - loss: 1.2582 - acc: 0.5467 - val_loss: 1.2213 - val_acc: 0.5587
 Epoch 4/40
-50000/50000 [==============================] - 12s 237us/step - loss: 0.8766 - acc: 0.6920 - val_loss: 0.7028 - val_acc: 0.7487
+50000/50000 [==============================] - 128s 3ms/step - loss: 1.0861 - acc: 0.6105 - val_loss: 1.2442 - val_acc: 0.5707
 Epoch 5/40
-50000/50000 [==============================] - 12s 235us/step - loss: 0.7963 - acc: 0.7208 - val_loss: 0.5867 - val_acc: 0.7983
+50000/50000 [==============================] - 128s 3ms/step - loss: 0.9415 - acc: 0.6646 - val_loss: 1.4994 - val_acc: 0.5678
 Epoch 6/40
-50000/50000 [==============================] - 12s 237us/step - loss: 0.7238 - acc: 0.7467 - val_loss: 0.5441 - val_acc: 0.8108
+50000/50000 [==============================] - 129s 3ms/step - loss: 0.8268 - acc: 0.7096 - val_loss: 1.5333 - val_acc: 0.5550
 Epoch 7/40
-50000/50000 [==============================] - 12s 238us/step - loss: 0.6717 - acc: 0.7650 - val_loss: 0.5090 - val_acc: 0.8240
+50000/50000 [==============================] - 128s 3ms/step - loss: 0.7290 - acc: 0.7461 - val_loss: 0.9690 - val_acc: 0.6576
 Epoch 8/40
-50000/50000 [==============================] - 12s 237us/step - loss: 0.6144 - acc: 0.7837 - val_loss: 0.4346 - val_acc: 0.8522
+50000/50000 [==============================] - 128s 3ms/step - loss: 0.6461 - acc: 0.7739 - val_loss: 0.8197 - val_acc: 0.7188
 Epoch 9/40
-50000/50000 [==============================] - 12s 237us/step - loss: 0.5804 - acc: 0.7968 - val_loss: 0.3987 - val_acc: 0.8696
+50000/50000 [==============================] - 128s 3ms/step - loss: 0.5859 - acc: 0.7956 - val_loss: 0.6610 - val_acc: 0.7793
 Epoch 10/40
-50000/50000 [==============================] - 12s 237us/step - loss: 0.5541 - acc: 0.8067 - val_loss: 0.3516 - val_acc: 0.8862
+50000/50000 [==============================] - 128s 3ms/step - loss: 0.5111 - acc: 0.8226 - val_loss: 1.1397 - val_acc: 0.6667
 Epoch 11/40
-50000/50000 [==============================] - 12s 237us/step - loss: 0.5165 - acc: 0.8179 - val_loss: 0.3140 - val_acc: 0.8979
+50000/50000 [==============================] - 128s 3ms/step - loss: 0.4605 - acc: 0.8395 - val_loss: 0.7401 - val_acc: 0.7582
 Epoch 12/40
-50000/50000 [==============================] - 12s 238us/step - loss: 0.4843 - acc: 0.8308 - val_loss: 0.2824 - val_acc: 0.9067
+50000/50000 [==============================] - 128s 3ms/step - loss: 0.3958 - acc: 0.8620 - val_loss: 0.4087 - val_acc: 0.8586
 Epoch 13/40
-50000/50000 [==============================] - 12s 238us/step - loss: 0.4644 - acc: 0.8369 - val_loss: 0.2535 - val_acc: 0.9183
+50000/50000 [==============================] - 128s 3ms/step - loss: 0.3540 - acc: 0.8780 - val_loss: 0.4948 - val_acc: 0.8425
 Epoch 14/40
-50000/50000 [==============================] - 12s 237us/step - loss: 0.4407 - acc: 0.8448 - val_loss: 0.2322 - val_acc: 0.9289
+50000/50000 [==============================] - 128s 3ms/step - loss: 0.3046 - acc: 0.8936 - val_loss: 0.4973 - val_acc: 0.8312
 Epoch 15/40
-50000/50000 [==============================] - 12s 238us/step - loss: 0.4122 - acc: 0.8540 - val_loss: 0.2469 - val_acc: 0.9203
+50000/50000 [==============================] - 129s 3ms/step - loss: 0.2756 - acc: 0.9022 - val_loss: 0.3232 - val_acc: 0.8902
 Epoch 16/40
-50000/50000 [==============================] - 12s 237us/step - loss: 0.4049 - acc: 0.8560 - val_loss: 0.2083 - val_acc: 0.9361
+50000/50000 [==============================] - 129s 3ms/step - loss: 0.2296 - acc: 0.9207 - val_loss: 0.4062 - val_acc: 0.8669
 Epoch 17/40
-50000/50000 [==============================] - 12s 237us/step - loss: 0.3852 - acc: 0.8618 - val_loss: 0.1766 - val_acc: 0.9547
+50000/50000 [==============================] - 128s 3ms/step - loss: 0.2047 - acc: 0.9279 - val_loss: 0.5536 - val_acc: 0.8242
 Epoch 18/40
-50000/50000 [==============================] - 12s 236us/step - loss: 0.3677 - acc: 0.8687 - val_loss: 0.1592 - val_acc: 0.9524
+50000/50000 [==============================] - 128s 3ms/step - loss: 0.1805 - acc: 0.9366 - val_loss: 0.5356 - val_acc: 0.8360
 Epoch 19/40
-50000/50000 [==============================] - 12s 236us/step - loss: 0.3549 - acc: 0.8760 - val_loss: 0.1723 - val_acc: 0.9482
+50000/50000 [==============================] - 128s 3ms/step - loss: 0.1544 - acc: 0.9462 - val_loss: 0.2621 - val_acc: 0.9155
 Epoch 20/40
-50000/50000 [==============================] - 12s 236us/step - loss: 0.3408 - acc: 0.8772 - val_loss: 0.1468 - val_acc: 0.9590
+50000/50000 [==============================] - 128s 3ms/step - loss: 0.1458 - acc: 0.9490 - val_loss: 0.5846 - val_acc: 0.8082
 Epoch 21/40
-50000/50000 [==============================] - 12s 237us/step - loss: 0.3267 - acc: 0.8845 - val_loss: 0.1306 - val_acc: 0.9633
+50000/50000 [==============================] - 128s 3ms/step - loss: 0.1196 - acc: 0.9581 - val_loss: 0.2533 - val_acc: 0.9109
 Epoch 22/40
-50000/50000 [==============================] - 12s 237us/step - loss: 0.3119 - acc: 0.8899 - val_loss: 0.1356 - val_acc: 0.9600
+50000/50000 [==============================] - 128s 3ms/step - loss: 0.1164 - acc: 0.9596 - val_loss: 0.2680 - val_acc: 0.9131
 Epoch 23/40
-50000/50000 [==============================] - 12s 236us/step - loss: 0.3052 - acc: 0.8913 - val_loss: 0.1238 - val_acc: 0.9651
+50000/50000 [==============================] - 128s 3ms/step - loss: 0.1139 - acc: 0.9615 - val_loss: 0.4014 - val_acc: 0.8789
 Epoch 24/40
-50000/50000 [==============================] - 12s 236us/step - loss: 0.2981 - acc: 0.8946 - val_loss: 0.1126 - val_acc: 0.9717
+50000/50000 [==============================] - 128s 3ms/step - loss: 0.0972 - acc: 0.9666 - val_loss: 0.4419 - val_acc: 0.8676
 Epoch 25/40
-50000/50000 [==============================] - 12s 237us/step - loss: 0.2869 - acc: 0.8982 - val_loss: 0.1070 - val_acc: 0.9716
+50000/50000 [==============================] - 128s 3ms/step - loss: 0.0943 - acc: 0.9679 - val_loss: 0.2819 - val_acc: 0.9161
 Epoch 26/40
-50000/50000 [==============================] - 12s 237us/step - loss: 0.2803 - acc: 0.8992 - val_loss: 0.0945 - val_acc: 0.9760
+50000/50000 [==============================] - 128s 3ms/step - loss: 0.0860 - acc: 0.9699 - val_loss: 0.1937 - val_acc: 0.9386
 Epoch 27/40
-50000/50000 [==============================] - 12s 237us/step - loss: 0.2817 - acc: 0.9008 - val_loss: 0.1015 - val_acc: 0.9733
+50000/50000 [==============================] - 128s 3ms/step - loss: 0.0805 - acc: 0.9722 - val_loss: 0.2039 - val_acc: 0.9338
 Epoch 28/40
-50000/50000 [==============================] - 12s 237us/step - loss: 0.2654 - acc: 0.9057 - val_loss: 0.0856 - val_acc: 0.9786
+50000/50000 [==============================] - 128s 3ms/step - loss: 0.0935 - acc: 0.9677 - val_loss: 0.2136 - val_acc: 0.9324
 Epoch 29/40
-50000/50000 [==============================] - 12s 237us/step - loss: 0.2640 - acc: 0.9063 - val_loss: 0.0690 - val_acc: 0.9842
+50000/50000 [==============================] - 128s 3ms/step - loss: 0.0834 - acc: 0.9715 - val_loss: 0.4425 - val_acc: 0.8810
 Epoch 30/40
-50000/50000 [==============================] - 12s 237us/step - loss: 0.2610 - acc: 0.9083 - val_loss: 0.0788 - val_acc: 0.9819
+50000/50000 [==============================] - 128s 3ms/step - loss: 0.0702 - acc: 0.9761 - val_loss: 0.1506 - val_acc: 0.9480
 Epoch 31/40
-50000/50000 [==============================] - 12s 236us/step - loss: 0.2539 - acc: 0.9115 - val_loss: 0.0670 - val_acc: 0.9868
+50000/50000 [==============================] - 128s 3ms/step - loss: 0.0672 - acc: 0.9766 - val_loss: 0.1828 - val_acc: 0.9399
 Epoch 32/40
-50000/50000 [==============================] - 12s 237us/step - loss: 0.2396 - acc: 0.9154 - val_loss: 0.0648 - val_acc: 0.9845
+50000/50000 [==============================] - 128s 3ms/step - loss: 0.0629 - acc: 0.9783 - val_loss: 0.1012 - val_acc: 0.9641
 Epoch 33/40
-50000/50000 [==============================] - 12s 236us/step - loss: 0.2420 - acc: 0.9145 - val_loss: 0.0670 - val_acc: 0.9817
+50000/50000 [==============================] - 128s 3ms/step - loss: 0.0699 - acc: 0.9760 - val_loss: 0.1225 - val_acc: 0.9587
 Epoch 34/40
-50000/50000 [==============================] - 12s 236us/step - loss: 0.2378 - acc: 0.9165 - val_loss: 0.0622 - val_acc: 0.9865
+50000/50000 [==============================] - 128s 3ms/step - loss: 0.0827 - acc: 0.9720 - val_loss: 0.1198 - val_acc: 0.9610
 Epoch 35/40
-50000/50000 [==============================] - 12s 237us/step - loss: 0.2354 - acc: 0.9183 - val_loss: 0.0652 - val_acc: 0.9840
+50000/50000 [==============================] - 128s 3ms/step - loss: 0.0563 - acc: 0.9806 - val_loss: 0.2549 - val_acc: 0.9265
 Epoch 36/40
-50000/50000 [==============================] - 12s 237us/step - loss: 0.2369 - acc: 0.9197 - val_loss: 0.0696 - val_acc: 0.9834
+50000/50000 [==============================] - 127s 3ms/step - loss: 0.0575 - acc: 0.9803 - val_loss: 0.3399 - val_acc: 0.9057
 Epoch 37/40
-50000/50000 [==============================] - 12s 237us/step - loss: 0.2277 - acc: 0.9205 - val_loss: 0.0727 - val_acc: 0.9799
+50000/50000 [==============================] - 127s 3ms/step - loss: 0.0565 - acc: 0.9811 - val_loss: 0.1516 - val_acc: 0.9500
 Epoch 38/40
-50000/50000 [==============================] - 12s 237us/step - loss: 0.2178 - acc: 0.9226 - val_loss: 0.0485 - val_acc: 0.9866
+50000/50000 [==============================] - 127s 3ms/step - loss: 0.0493 - acc: 0.9831 - val_loss: 0.1688 - val_acc: 0.9482
 Epoch 39/40
-50000/50000 [==============================] - 12s 238us/step - loss: 0.2190 - acc: 0.9242 - val_loss: 0.0646 - val_acc: 0.9809
+50000/50000 [==============================] - 127s 3ms/step - loss: 0.0548 - acc: 0.9817 - val_loss: 0.1342 - val_acc: 0.9579
 Epoch 40/40
-50000/50000 [==============================] - 12s 236us/step - loss: 0.2215 - acc: 0.9222 - val_loss: 0.0550 - val_acc: 0.9864
-Test loss: 0.8255806840360165
-Test accuracy: 0.7886
+50000/50000 [==============================] - 128s 3ms/step - loss: 0.0569 - acc: 0.9803 - val_loss: 0.1144 - val_acc: 0.9619
+Test loss: 1.265696372127533
+Test accuracy: 0.753
 </pre>
 </div>
 </div>
